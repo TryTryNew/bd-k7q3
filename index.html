@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>孟加拉：三語讀經・生活用語</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="孟加拉">
+<meta name="theme-color" content="#1f4e4a">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{--bg:#f7f5f0;--card:#fff;--ink:#1f2328;--mute:#6b7280;--line:#e5e1d8;--acc:#1f4e4a;--acc2:#e6f0ee;--ok:#0f6b4f;--warn:#a15c00;--warnbg:#fff4e0}
+@media (prefers-color-scheme:dark){:root{--bg:#16181b;--card:#1f2226;--ink:#ecebe8;--mute:#9aa0a6;--line:#30343a;--acc:#5cc3b0;--acc2:#1d3029;--ok:#5cc39b;--warn:#f0b35a;--warnbg:#2e2618}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif;line-height:1.55;-webkit-text-size-adjust:100%}
+main{max-width:560px;margin:0 auto;padding:calc(20px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom))}
+h1{font-size:24px;margin:4px 0 2px}
+.sub{color:var(--mute);font-size:14px;margin:0 0 18px}
+.bn{font-family:"Noto Sans Bengali",sans-serif}
+a.big{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin:12px 0;min-height:96px}
+a.big:active{transform:scale(.99)}
+a.big .ic{font-size:34px;width:56px;height:56px;border-radius:14px;background:var(--acc2);display:flex;align-items:center;justify-content:center;flex:none}
+a.big b{display:block;font-size:20px}
+a.big span.d{color:var(--mute);font-size:14px}
+#st{border-radius:12px;padding:10px 12px;font-size:14px;margin:16px 0;background:var(--warnbg);color:var(--warn)}
+#st.ok{background:var(--acc2);color:var(--ok)}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--warn);width:0}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 14px;margin:10px 0}
+summary{min-height:44px;display:flex;align-items:center;font-weight:600;cursor:pointer}
+details ol{padding-left:20px;margin:4px 0 12px}
+details li{margin:4px 0}
+.foot{color:var(--mute);font-size:12px;margin-top:20px}
+</style>
+</head>
+<body>
+<main>
+  <h1>孟加拉 <span class="bn">বাংলা</span></h1>
+  <p class="sub">三語讀經・生活用語　沒有網路也能用</p>
+
+  <a class="big" href="bible/"><span class="ic">📖</span><span><b>三語讀經</b><span class="d">英文・中文恢復本・<span class="bn">বাংলা</span>　點字發音、整章朗讀</span></span></a>
+  <a class="big" href="phrases/"><span class="ic">💬</span><span><b>生活用語</b><span class="d">打招呼、問路、點餐、數字　每句都有錄音</span></span></a>
+
+  <div id="st">正在檢查離線資料…</div>
+
+  <details>
+    <summary>📱 怎麼存到手機（沒網路也能開）</summary>
+    <p><b>iPhone（一定要用 Safari）</b></p>
+    <ol>
+      <li>用 Safari 打開這個網址</li>
+      <li>按下方的「分享」<span aria-hidden="true">（方框加向上箭頭）</span></li>
+      <li>往下滑，選「加入主畫面」→「加入」</li>
+      <li>從主畫面的「孟加拉」圖示打開，等上面顯示「✓ 已可離線使用」</li>
+    </ol>
+    <p><b>Android（用 Chrome）</b></p>
+    <ol>
+      <li>用 Chrome 打開這個網址</li>
+      <li>按右上角「⋮」→「加到主畫面」或「安裝應用程式」</li>
+      <li>從主畫面的「孟加拉」圖示打開，等上面顯示「✓ 已可離線使用」</li>
+    </ol>
+    <p><b>出發前</b>：開飛航模式，從主畫面打開，各按一次 ▶ 確定有聲音。</p>
+    <p><a href="install.html">完整安裝說明（可分享、可列印，附 QR code）→</a></p>
+  </details>
+
+  <p class="foot">版本 r1（讀經 v6・生活用語 v1）<br>孟加拉文經文：Biblica 當代譯本 OBCV（CC BY-SA 4.0）。英文、中文恢復本僅供個人與家人讀經。</p>
+</main>
+<script>
+const st=document.getElementById('st');
+function show(have,total){
+  if(total&&have>=total){st.className='ok';st.innerHTML='✓ 已可離線使用（全部 '+total+' 個檔案都存在這支手機）';return true}
+  st.className='';st.innerHTML='正在下載離線資料… '+have+' / '+(total||'?')+'<div class="bar"><i style="width:'+(total?Math.round(have/total*100):0)+'%"></i></div>請保持網路連線，下載完才能離線使用。';return false}
+if(!('serviceWorker' in navigator)){st.textContent='這個瀏覽器不支援離線使用。iPhone 請用 Safari，Android 請用 Chrome。'}
+else{
+  navigator.serviceWorker.register('sw.js').catch(()=>{st.textContent='離線功能啟動失敗，請重新整理再試一次。'});
+  if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{});
+  navigator.serviceWorker.addEventListener('message',e=>{if(e.data&&e.data.type==='status'&&show(e.data.have,e.data.total))clearInterval(t)});
+  const ask=()=>navigator.serviceWorker.getRegistration().then(r=>{const w=r&&(r.installing||r.waiting||r.active);if(w)w.postMessage('status')});
+  const t=setInterval(ask,1000);ask();
+}
+</script>
+</body>
+</html>

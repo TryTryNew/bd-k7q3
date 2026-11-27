@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>孟加拉語生活用語</title>
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" href="../icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="孟加拉">
+<meta name="theme-color" content="#1f4e4a">
+<link rel="stylesheet" href="../fonts/fonts.css">
+
+<style>
+:root{--bg:#f7f5f0;--card:#fff;--ink:#1f2328;--mute:#6b7280;--line:#e5e1d8;--acc:#0f6b4f;--acc2:#e6f2ed;--warn:#a15c00;--warnbg:#fff4e0;--star:#d99a00}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#16181b;--card:#1f2226;--ink:#ecebe8;--mute:#9aa0a6;--line:#30343a;--acc:#5cc39b;--acc2:#1d3029;--warn:#f0b35a;--warnbg:#2e2618}}
+:root[data-theme=dark]{--bg:#16181b;--card:#1f2226;--ink:#ecebe8;--mute:#9aa0a6;--line:#30343a;--acc:#5cc39b;--acc2:#1d3029;--warn:#f0b35a;--warnbg:#2e2618}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Noto Sans Bengali","Segoe UI",sans-serif;line-height:1.5;-webkit-text-size-adjust:100%}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+
+/* 頂部：標題和搜尋會捲走，只有分類列固定 */
+.top{padding:calc(10px + env(safe-area-inset-top)) 12px 6px;max-width:760px;margin:0 auto}
+.titlerow{display:flex;align-items:center;gap:8px}
+h1{font-size:18px;margin:0;flex:1}
+h1 small{font-size:13px;color:var(--mute);font-weight:normal}
+.iconbtn{min-width:44px;height:44px;border:1px solid var(--line);background:var(--card);border-radius:12px;font-size:18px;display:inline-flex;align-items:center;justify-content:center;padding:0 10px;gap:4px}
+.iconbtn.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.iconbtn .t{font-size:13px}
+input[type=search]{width:100%;margin-top:8px;height:44px;padding:0 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font-size:16px}
+nav.tabs{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.tabs-in{display:flex;gap:6px;overflow-x:auto;padding:8px 12px;scrollbar-width:none;max-width:760px;margin:0 auto}
+.tabs-in::-webkit-scrollbar{display:none}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:0 14px;height:38px;font-size:14px;white-space:nowrap;flex:none}
+.chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
+
+main{padding:6px 12px 90px;max-width:760px;margin:0 auto}
+.secnote{background:var(--acc2);border-radius:10px;padding:8px 10px;font-size:13px;margin:6px 0 10px}
+.hint{display:flex;gap:10px;align-items:flex-start;background:var(--acc2);border:1px solid var(--acc);border-radius:12px;padding:10px 12px;margin:8px 0;font-size:14px}
+.hint p{margin:0;flex:1}
+.hint button{border:none;background:var(--acc);color:#fff;border-radius:8px;height:36px;padding:0 12px;flex:none}
+
+/* 卡片：文字用整個寬度，按鈕在底部 */
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 12px 8px;margin:10px 0}
+.bn{font-family:"Noto Sans Bengali","Kohinoor Bangla","Bangla Sangam MN",sans-serif;font-size:calc(22px*var(--fs,1));line-height:1.45}
+.bn .w{border-radius:4px;padding:0 1px;cursor:pointer}
+.bn .w.now,.bn.now{background:var(--acc2)}
+.zy{font-size:calc(16px*var(--fs,1));color:var(--acc);letter-spacing:.5px;margin-top:2px}
+.ro{font-size:calc(13px*var(--fs,1));color:var(--mute);font-style:italic}
+.zh{font-size:calc(16px*var(--fs,1));margin-top:4px}
+.en{font-size:calc(14px*var(--fs,1));color:var(--mute)}
+.tag{display:inline-block;font-size:11px;border-radius:6px;padding:0 6px;margin-right:4px;vertical-align:2px}
+.tag.d{background:var(--acc2);color:var(--acc)}
+.tag.f{background:var(--warnbg);color:var(--warn)}
+.note{font-size:13px;background:var(--warnbg);border-radius:8px;padding:6px 8px;margin-top:8px}
+.note.i{background:var(--acc2)}
+.acts{display:flex;gap:6px;margin-top:8px;border-top:1px solid var(--line);padding-top:8px;flex-wrap:wrap}
+.act{height:44px;border:none;background:var(--acc2);color:var(--acc);border-radius:10px;padding:0 12px;font-size:14px;display:inline-flex;align-items:center;gap:6px}
+.act.main{background:var(--acc);color:#fff}
+.act.ghost{background:transparent;color:var(--mute)}
+.act.star{background:transparent;color:var(--mute);font-size:22px;margin-left:auto;width:44px;justify-content:center;padding:0}
+.act.star.on{color:var(--star)}
+.act.ghost.on{color:var(--warn)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.num{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px;text-align:left;min-height:44px}
+.num .n{font-size:13px;color:var(--mute)}
+.num .b{font-family:"Noto Sans Bengali",sans-serif;font-size:calc(20px*var(--fs,1))}
+.num .z{font-size:calc(14px*var(--fs,1));color:var(--acc)}
+.num .r{font-size:12px;color:var(--mute);font-style:italic}
+.num.now{outline:2px solid var(--acc)}
+h2{font-size:15px;margin:16px 0 4px;color:var(--mute)}
+.empty{color:var(--mute);text-align:center;padding:40px 0}
+.hide-bn .card .bn,.hide-zy .card .zy,.hide-ro .card .ro,.hide-zh .card .zh,.hide-en .card .en{display:none}
+.hide-bn .num .b,.hide-zy .num .z,.hide-ro .num .r{display:none}
+
+/* 設定 */
+.sheet-bg{position:fixed;inset:0;background:rgb(0 0 0/.35);z-index:20;display:none}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:21;background:var(--card);border-radius:18px 18px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom));max-width:760px;margin:0 auto;display:none;max-height:85vh;overflow:auto}
+.open{display:block}
+.sheet h3{margin:0 0 12px;font-size:17px;padding-right:50px}
+.sheet .x{position:absolute;right:10px;top:8px;width:44px;height:44px;border:none;background:none;font-size:24px;color:var(--mute)}
+.srow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 0;border-bottom:1px solid var(--line)}
+.srow .k{width:4.5em;color:var(--mute);font-size:14px}
+.srow:last-of-type{border-bottom:none}
+.fsval{min-width:3.5em;text-align:center;font-size:14px}
+.sfoot{font-size:12px;color:var(--mute);margin-top:12px;line-height:1.6}
+
+/* 給對方看：全螢幕大字 */
+#show{position:fixed;inset:0;z-index:30;background:var(--bg);display:none;flex-direction:column;padding:calc(12px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom))}
+#show.open{display:flex}
+#show .bar{display:flex;justify-content:flex-end}
+#show .big{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:18px;overflow:auto}
+#show .sbn{font-family:"Noto Sans Bengali","Kohinoor Bangla","Bangla Sangam MN",sans-serif;font-size:clamp(34px,10vw,72px);line-height:1.35;font-weight:600}
+#show .szh{font-size:18px;color:var(--mute)}
+#show .splay{height:64px;min-width:64px;padding:0 28px;border:none;border-radius:32px;background:var(--acc);color:#fff;font-size:20px}
+#show .snav{display:flex;justify-content:space-between;gap:8px}
+#show .snav button{flex:1;height:48px;border:1px solid var(--line);background:var(--card);border-radius:12px;font-size:15px}
+
+#toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#222;color:#fff;padding:8px 14px;border-radius:10px;font-size:13px;max-width:90vw;display:none;z-index:40}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="titlerow">
+    <h1>孟加拉語生活用語 <small>বাংলা</small></h1>
+    <a class="iconbtn" href="../" aria-label="回首頁" style="text-decoration:none">⌂</a>
+    <button class="iconbtn" id="slow" aria-pressed="false" title="慢速唸">🐢<span class="t">慢速</span></button>
+    <button class="iconbtn" id="gear" aria-label="設定">⚙</button>
+  </div>
+  <input type="search" id="q" placeholder="搜尋中文、英文、孟加拉文…">
+</div>
+<nav class="tabs" aria-label="分類"><div class="tabs-in" id="tabs"></div></nav>
+<main id="main"></main>
+
+<div class="sheet-bg" id="sheetBg"></div>
+<section class="sheet" id="sheet" aria-labelledby="sheetTitle">
+  <button class="x" id="sheetX" aria-label="關閉">×</button>
+  <h3 id="sheetTitle">設定</h3>
+  <div class="srow"><span class="k">顯示</span><span id="showOpts" style="display:flex;gap:6px;flex-wrap:wrap"></span></div>
+  <div class="srow"><span class="k">說明</span><button class="chip" id="notesAll">預設展開說明</button></div>
+  <div class="srow"><span class="k">字體</span><button class="iconbtn" id="fsDown" aria-label="字變小">A−</button><span class="fsval" id="fsVal"></span><button class="iconbtn" id="fsUp" aria-label="字變大">A+</button></div>
+  <div class="sfoot">注音只是近似音，請以聲音為準。注音規則跟三語讀經一樣：不送氣的 ক ট ত প চ 標 ㄍ ㄉ ㄉ ㄅ ㄐ，送氣的 খ ঠ থ ফ ছ 標 ㄎ ㄊ ㄊ ㄈ ㄑ；r 是舌尖輕彈一下，標 ㄌ；字尾的 ㄇ、ㄋ、ㄎ、ㄉ 等只輕輕帶過。<br>點孟加拉文的單字只唸那個字；「給對方看」會把句子放大成全螢幕。<br>聲音是預錄的（微軟孟加拉語男聲），沒有網路也能播。<br>版本：生活用語 v1（離線版，r1）</div>
+</section>
+
+<div id="show" role="dialog" aria-label="給對方看">
+  <div class="bar"><button class="iconbtn" id="showX" aria-label="關閉">✕</button></div>
+  <div class="big">
+    <div class="sbn" id="sBn"></div>
+    <button class="splay" id="sPlay">▶ 唸給他聽</button>
+    <div class="szh" id="sZh"></div>
+  </div>
+  <div class="snav"><button id="sPrev">‹ 上一句</button><button id="sNext">下一句 ›</button></div>
+</div>
+<div id="toast"></div>
+<script>
+/* 每一句：[孟加拉文, 羅馬拼音, 注音, 中文, 英文, 標記, 說明]
+   標記：d=來自你的題庫  f=已修正（說明會寫原因）  w=單字 */
+const CATS=[
+{id:"greet",name:"打招呼",items:[
+["আসসালামু আলাইকুম।","assalamu alaikum","ㄚㄙ-ㄙㄚ-ㄌㄚ-ㄇㄨ ㄚ-ㄌㄞ-ㄍㄨㄇ","你好（最常見的問候）","Peace be upon you (common greeting)","","孟加拉最常見的打招呼，本意是「願你平安」，帶有伊斯蘭色彩。別人這樣跟你打招呼時，回答是「ওয়ালাইকুম আসসালাম（ㄨㄚ-ㄌㄞ-ㄍㄨㄇ ㄚㄙ-ㄙㄚ-ㄌㄚㄇ）」。要不要自己主動用，可以問當地弟兄的習慣。"],
+["হ্যালো, আমার নাম সামির।","hyalo, amar nam samir","ㄏㄝ-ㄌㄡ  ㄚ-ㄇㄚㄌ ㄋㄚㄇ ㄙㄚ-ㄇㄧㄌ","你好，我的名字是薩米爾","Hello, my name is Samir.","d","「সামির（薩米爾）」換成自己的名字就可以。"],
+["আপনার নাম কী?","apnar nam ki?","ㄚㄅ-ㄋㄚㄌ ㄋㄚㄇ ㄍㄧ","請問你叫什麼名字？","What is your name?","df","原本用 তোমার（tomar），那是對朋友、晚輩的說法。第一次見面用 আপনার（apnar）比較有禮貌；跟學生熟了，可以改回 তোমার নাম কী?"],
+["আমি তাইওয়ান থেকে এসেছি।","ami taiwan theke eshechhi","ㄚ-ㄇㄧ ㄉㄞ-ㄨㄚㄋ ㄊㄝ-ㄍㄝ ㄝ-ㄕㄝ-ㄑㄧ","我來自台灣","I'm from Taiwan.","df","原句「আমি তাইওয়ানের বাসিন্দা, যা চীনের মূল ভূখণ্ডের পাশেই অবস্থিত」文法沒錯，但很書面，像在念公文（意思是「我是台灣居民，台灣位於中國大陸旁」）。改成口語的「我從台灣來」，後半拆成下一句。"],
+["তাইওয়ান চীনের পাশে একটা দ্বীপ।","taiwan chiner pashe ekta dip","ㄉㄞ-ㄨㄚㄋ ㄐㄧ-ㄋㄝㄌ ㄅㄚ-ㄕㄝ ㄝㄍ-ㄉㄚ ㄉㄧㄅ","台灣是中國旁邊的一個島","Taiwan is an island next to China.","d",""],
+["আপনি কি ইংরেজি বলতে পারেন?","apni ki ingreji bolte paren?","ㄚㄅ-ㄋㄧ ㄍㄧ ㄧㄥ-ㄌㄝ-ㄐㄧ ㄅㄛㄌ-ㄉㄝ ㄅㄚ-ㄌㄝㄋ","請問你會說英文嗎？","Can you speak English?","d","題庫裡這句的中文諧音寫「阿咪…」，但句子開頭是 আপনি（ㄚㄅ-ㄋㄧ，你），不是 আমি（ㄚ-ㄇㄧ，我），唸的時候要注意。"],
+["আমি একটু একটু বাংলা বলতে পারি।","ami ektu ektu bangla bolte pari","ㄚ-ㄇㄧ ㄝㄍ-ㄉㄨ ㄝㄍ-ㄉㄨ ㄅㄤ-ㄌㄚ ㄅㄛㄌ-ㄉㄝ ㄅㄚ-ㄌㄧ","我會說一點點孟加拉語","I speak a little Bengali.","",""],
+["আপনি কেমন আছেন?","apni kemon achhen?","ㄚㄅ-ㄋㄧ ㄍㄝ-ㄇㄛㄋ ㄚ-ㄑㄝㄋ","你好嗎？","How are you?","",""],
+["আমি ভালো আছি।","ami bhalo achhi","ㄚ-ㄇㄧ ㄅㄚ-ㄌㄡ ㄚ-ㄑㄧ","我很好","I'm fine.","",""],
+["আপনার সাথে পরিচিত হয়ে ভালো লাগলো।","apnar shathe porichito hoye bhalo laglo","ㄚㄅ-ㄋㄚㄌ ㄕㄚ-ㄊㄝ ㄅㄛ-ㄌㄧ-ㄐㄧ-ㄉㄛ ㄏㄛ-ㄝ ㄅㄚ-ㄌㄡ ㄌㄚㄍ-ㄌㄡ","很高興認識你","Nice to meet you.","",""],
+["ধন্যবাদ।","dhonnobad","ㄉㄛㄋ-ㄋㄛ-ㄅㄚㄉ","謝謝","Thank you.","",""],
+["দুঃখিত।","dukkhito","ㄉㄨㄎ-ㄎㄧ-ㄉㄛ","對不起","Sorry.","",""],
+["কোনো সমস্যা নেই।","kono shomoshsha nei","ㄍㄡ-ㄋㄡ ㄕㄛ-ㄇㄛㄕ-ㄕㄚ ㄋㄟ","沒問題／沒關係","No problem.","",""],
+["হ্যাঁ। / না।","hyan / na","ㄏㄝㄣ ／ ㄋㄚ","是／不是","Yes. / No.","",""],
+["আস্তে আস্তে বলবেন, প্লিজ।","aste aste bolben, pliz","ㄚㄙ-ㄉㄝ ㄚㄙ-ㄉㄝ ㄅㄛㄌ-ㄅㄝㄋ ㄅㄌㄧㄗ","請說慢一點","Please speak slowly.","",""],
+["আমি বুঝতে পারিনি।","ami bujhte parini","ㄚ-ㄇㄧ ㄅㄨㄐ-ㄉㄝ ㄅㄚ-ㄌㄧ-ㄋㄧ","我聽不懂","I didn't understand.","",""],
+["আবার বলবেন?","abar bolben?","ㄚ-ㄅㄚㄌ ㄅㄛㄌ-ㄅㄝㄋ","可以再說一次嗎？","Could you say that again?","",""],
+["আবার দেখা হবে।","abar dekha hobe","ㄚ-ㄅㄚㄌ ㄉㄝ-ㄎㄚ ㄏㄛ-ㄅㄝ","下次見","See you again.","",""]
+]},
+{id:"air",name:"機場・住宿",items:[
+["এই যে আমার পাসপোর্ট।","ei je amar pasport","ㄟ ㄐㄝ ㄚ-ㄇㄚㄌ ㄅㄚㄙ-ㄅㄡㄌㄉ","這是我的護照","Here is my passport.","",""],
+["আমি দুই সপ্তাহ থাকব।","ami dui shoptaho thakbo","ㄚ-ㄇㄧ ㄉㄨ-ㄧ ㄕㄛㄅ-ㄉㄚ-ㄏㄛ ㄊㄚㄍ-ㄅㄛ","我會待兩個星期","I'll stay for two weeks.","","「দুই সপ্তাহ（兩個星期）」換成實際天數，例如 দশ দিন（ㄉㄛㄕ ㄉㄧㄋ，十天）。"],
+["আমি এই হোটেলে থাকব।","ami ei hotele thakbo","ㄚ-ㄇㄧ ㄟ ㄏㄡ-ㄉㄝ-ㄌㄝ ㄊㄚㄍ-ㄅㄛ","我住這間飯店","I'm staying at this hotel.","","說的時候同時給對方看飯店名稱或地址。"],
+["আমার লাগেজ কোথায়?","amar lagej kothay?","ㄚ-ㄇㄚㄌ ㄌㄚ-ㄍㄝㄐ ㄍㄡ-ㄊㄞ","我的行李在哪裡？","Where is my luggage?","",""],
+["টাকা কোথায় ভাঙাতে পারি?","taka kothay bhangate pari?","ㄉㄚ-ㄍㄚ ㄍㄡ-ㄊㄞ ㄅㄤ-ㄍㄚ-ㄉㄝ ㄅㄚ-ㄌㄧ","哪裡可以換錢？","Where can I exchange money?","","টাকা（taka）就是孟加拉的錢「塔卡」。"],
+["সিম কার্ড কোথায় পাব?","sim kard kothay pabo?","ㄙㄧㄇ ㄍㄚㄌㄉ ㄍㄡ-ㄊㄞ ㄅㄚ-ㄅㄛ","哪裡可以買 SIM 卡？","Where can I get a SIM card?","",""],
+["ওয়াই-ফাই আছে?","wai-fai achhe?","ㄨㄞ-ㄈㄞ ㄚ-ㄑㄝ","有 Wi-Fi 嗎？","Is there Wi-Fi?","",""],
+["ওয়াই-ফাইয়ের পাসওয়ার্ড কী?","wai-faier pasward ki?","ㄨㄞ-ㄈㄞ-ㄧㄝㄌ ㄅㄚㄙ-ㄨㄚㄌㄉ ㄍㄧ","Wi-Fi 密碼是什麼？","What's the Wi-Fi password?","",""]
+]},
+{id:"go",name:"交通・問路",items:[
+["গাড়ি","gari","ㄍㄚ-ㄌㄧ","汽車","car","dw",""],
+["মোটরসাইকেল","motorsaikel","ㄇㄡ-ㄉㄛㄌ-ㄙㄞ-ㄍㄝㄌ","機車","motorcycle","dfw","題庫第一版寫的 লোকোমোটিভ（locomotive）是「火車頭」，第二版已經改成正確的 মোটরসাইকেল。"],
+["বাস","bas","ㄅㄚㄙ","公車","bus","dw",""],
+["ট্রেন","tren","ㄉㄌㄝㄋ","火車","train","dw",""],
+["বিমান","biman","ㄅㄧ-ㄇㄚㄋ","飛機","airplane","dw",""],
+["রিকশা","riksha","ㄌㄧㄍ-ㄕㄚ","人力三輪車（黃包車）","rickshaw","dfw","孟加拉的「黃包車」是腳踏的三輪車，叫 রিকশা。題庫裡的 টুক-টুক（tuk-tuk）當地不太這樣叫。"],
+["সিএনজি","si-en-ji","ㄙㄧ-ㄝㄋ-ㄐㄧ","有引擎的三輪計程車（CNG）","CNG auto-rickshaw","w","當地綠色、有引擎的三輪車就叫 CNG，因為燒天然氣。上車前先講好價錢。"],
+["ভাড়া কত?","bhara koto?","ㄅㄚ-ㄌㄚ ㄍㄛ-ㄉㄛ","車資多少？","How much is the fare?","",""],
+["ঢাকা বিশ্ববিদ্যালয়ে যাব।","dhaka bishshobiddaloye jabo","ㄉㄚ-ㄍㄚ ㄅㄧㄕ-ㄕㄛ-ㄅㄧㄉ-ㄉㄚ-ㄌㄛ-ㄝ ㄐㄚ-ㄅㄛ","我要去達卡大學","I want to go to Dhaka University.","","把「ঢাকা বিশ্ববিদ্যালয়（達卡大學）」換成地名就能通用：「地名＋এ যাব（…ㄝ ㄐㄚ-ㄅㄛ）」。"],
+["এখানে থামুন।","ekhane thamun","ㄝ-ㄎㄚ-ㄋㄝ ㄊㄚ-ㄇㄨㄋ","請在這裡停","Please stop here.","",""],
+["ডানে যান। / বামে যান।","dane jan / bame jan","ㄉㄚ-ㄋㄝ ㄐㄚㄋ ／ ㄅㄚ-ㄇㄝ ㄐㄚㄋ","右轉／左轉","Turn right. / Turn left.","",""],
+["সোজা যান।","shoja jan","ㄕㄡ-ㄐㄚ ㄐㄚㄋ","直走","Go straight.","",""],
+["টয়লেট কোথায়?","toylet kothay?","ㄉㄛㄧ-ㄌㄝㄉ ㄍㄡ-ㄊㄞ","廁所在哪裡？","Where is the toilet?","",""],
+["কতক্ষণ লাগবে?","kotokkhon lagbe?","ㄍㄛ-ㄉㄛㄍ-ㄎㄛㄋ ㄌㄚㄍ-ㄅㄝ","要多久？","How long will it take?","",""]
+]},
+{id:"food",name:"吃飯・購物",items:[
+["এটার দাম কত?","etar dam koto?","ㄝ-ㄉㄚㄌ ㄉㄚㄇ ㄍㄛ-ㄉㄛ","請問這個多少錢？","How much is this?","d",""],
+["আমি এটা চাই।","ami eta chai","ㄚ-ㄇㄧ ㄝ-ㄉㄚ ㄐㄞ","我要這個","I want this.","d",""],
+["একটু কমানো যাবে?","ektu komano jabe?","ㄝㄍ-ㄉㄨ ㄍㄛ-ㄇㄚ-ㄋㄡ ㄐㄚ-ㄅㄝ","可以算便宜一點嗎？","Can you lower the price a little?","","市場、路邊攤通常可以殺價；有標價的商店一般不行。"],
+["অনেক দাম!","onek dam!","ㄛ-ㄋㄝㄍ ㄉㄚㄇ","太貴了！","That's too expensive!","",""],
+["চলুন একসাথে খাই?","cholun eksathe khai?","ㄐㄛ-ㄌㄨㄋ ㄝㄍ-ㄕㄚ-ㄊㄝ ㄎㄞ","要不要一起吃個飯？","Shall we eat together?","d","題庫裡這句還沒翻譯，我補上了。"],
+["মেনু দেখতে পারি?","menu dekhte pari?","ㄇㄝ-ㄋㄨ ㄉㄝㄎ-ㄉㄝ ㄅㄚ-ㄌㄧ","可以看菜單嗎？","Can I see the menu?","",""],
+["ঝাল কম দেবেন।","jhal kom deben","ㄐㄚㄌ ㄍㄛㄇ ㄉㄝ-ㄅㄝㄋ","請少辣一點","Less spicy, please.","",""],
+["ঝাল ছাড়া।","jhal chhara","ㄐㄚㄌ ㄑㄚ-ㄌㄚ","不要辣","No spice, please.","",""],
+["পানি দেবেন?","pani deben?","ㄅㄚ-ㄋㄧ ㄉㄝ-ㄅㄝㄋ","可以給我水嗎？","Could I have some water?","","孟加拉國說 পানি（ㄅㄚ-ㄋㄧ）；印度那邊的孟加拉語說 জল。"],
+["বোতলের পানি আছে?","botoler pani achhe?","ㄅㄡ-ㄉㄛ-ㄌㄝㄌ ㄅㄚ-ㄋㄧ ㄚ-ㄑㄝ","有瓶裝水嗎？","Do you have bottled water?","","外地人在孟加拉最好只喝密封的瓶裝水。"],
+["খুব মজা!","khub moja!","ㄎㄨㄅ ㄇㄛ-ㄐㄚ","很好吃！","Delicious!","",""],
+["বিল দেবেন।","bil deben","ㄅㄧㄌ ㄉㄝ-ㄅㄝㄋ","請給我帳單","The bill, please.","",""],
+["চা","cha","ㄐㄚ","茶（奶茶）","tea","w",""],
+["ভাত","bhat","ㄅㄚㄉ","白飯","rice","w",""],
+["মুরগি","murgi","ㄇㄨㄌ-ㄍㄧ","雞肉","chicken","w",""],
+["মাছ","machh","ㄇㄚㄑ","魚","fish","w",""],
+["সবজি","shobji","ㄕㄛㄅ-ㄐㄧ","蔬菜","vegetables","w",""]
+]},
+{id:"num",name:"數字",nums:true},
+{id:"campus",name:"校園・聊天",items:[
+["আপনি কী নিয়ে পড়ছেন?","apni ki niye porchhen?","ㄚㄅ-ㄋㄧ ㄍㄧ ㄋㄧ-ㄝ ㄅㄛㄌ-ㄑㄝㄋ","請問你讀什麼科系？","What are you studying?","df","原句 তোমার প্রধান বিষয় কী 是「你的主修科目是什麼」，意思對，但比較書面，而且用的是較隨便的 তোমার。改成口語又有禮貌的說法。"],
+["আমার বিষয় …","amar bishoy …","ㄚ-ㄇㄚㄌ ㄅㄧ-ㄕㄛㄧ …","我的科系是……","My major is …","","後面接下面的科系名稱。"],
+["আপনি কোন বর্ষে পড়েন?","apni kon borshe poren?","ㄚㄅ-ㄋㄧ ㄍㄡㄋ ㄅㄛㄌ-ㄕㄝ ㄅㄛ-ㄌㄝㄋ","你大幾？","Which year are you in?","",""],
+["আপনার বাড়ি কোথায়?","apnar bari kothay?","ㄚㄅ-ㄋㄚㄌ ㄅㄚ-ㄌㄧ ㄍㄡ-ㄊㄞ","你老家在哪裡？","Where is your hometown?","","孟加拉人很常問這句，也很喜歡聊家鄉。"],
+["আপনার শখ কী?","apnar shokh ki?","ㄚㄅ-ㄋㄚㄌ ㄕㄛㄎ ㄍㄧ","你的興趣是什麼？","What are your hobbies?","",""],
+["ইলেকট্রিক্যাল ইঞ্জিনিয়ারিং","ilektrikal injiniyaring","ㄧ-ㄌㄝㄍ-ㄉㄌㄧ-ㄍㄚㄌ ㄧㄣ-ㄐㄧ-ㄋㄧ-ㄧㄚ-ㄌㄧㄥ","電機","Electrical Engineering","dw",""],
+["মেকানিক্যাল ইঞ্জিনিয়ারিং","mekanikal injiniyaring","ㄇㄝ-ㄍㄚ-ㄋㄧ-ㄍㄚㄌ ㄧㄣ-ㄐㄧ-ㄋㄧ-ㄧㄚ-ㄌㄧㄥ","機械","Mechanical Engineering","dw",""],
+["শিল্প প্রকৌশল","shilpo prokoushol","ㄕㄧㄌ-ㄅㄛ ㄅㄌㄛ-ㄍㄡ-ㄕㄛㄌ","工業工程","Industrial Engineering","dw","這是正式的孟加拉文。大學裡學生通常直接講英文 Industrial Engineering，或簡稱 IPE。"],
+["কেমিক্যাল ইঞ্জিনিয়ারিং","kemikal injiniyaring","ㄍㄝ-ㄇㄧ-ㄍㄚㄌ ㄧㄣ-ㄐㄧ-ㄋㄧ-ㄧㄚ-ㄌㄧㄥ","化工","Chemical Engineering","dw",""],
+["কম্পিউটার সায়েন্স","kompiutar sayens","ㄍㄛㄇ-ㄅㄧ-ㄨ-ㄉㄚㄌ ㄙㄞ-ㄣㄙ","資訊工程","Computer Science","w","孟加拉很多學生讀這個，常簡稱 CSE。"],
+["বিজনেস","bijnes","ㄅㄧㄐ-ㄋㄝㄙ","商科","Business (BBA)","w",""],
+["রসায়ন","roshayon","ㄌㄛ-ㄕㄚ-ㄧㄛㄋ","化學","Chemistry","dw",""],
+["গণিত","gonit","ㄍㄛ-ㄋㄧㄉ","數學","Mathematics","dw",""],
+["পদার্থবিজ্ঞান","podarthobiggan","ㄅㄛ-ㄉㄚㄌ-ㄊㄛ-ㄅㄧㄍ-ㄍㄢ","物理","Physics","dw",""],
+["জীববিজ্ঞান","jibobiggan","ㄐㄧ-ㄅㄛ-ㄅㄧㄍ-ㄍㄢ","生物","Biology","dw",""],
+["সাহিত্য","shahitto","ㄕㄚ-ㄏㄧㄉ-ㄉㄛ","文學","Literature","dw",""],
+["চিকিৎসাবিজ্ঞান","chikitshabiggan","ㄐㄧ-ㄍㄧㄉ-ㄕㄚ-ㄅㄧㄍ-ㄍㄢ","醫學","Medicine","dw","口語上學生常直接說 মেডিকেল（medical）。"],
+["শিক্ষা","shikkha","ㄕㄧㄍ-ㄎㄚ","教育","Education","dw",""]
+]},
+{id:"friend",name:"交朋友",items:[
+["আপনি কি হোয়াটসঅ্যাপ ব্যবহার করেন?","apni ki hoatsap bebohar koren?","ㄚㄅ-ㄋㄧ ㄍㄧ ㄏㄡ-ㄧㄚㄉ-ㄙㄚㄅ ㄅㄝ-ㄅㄛ-ㄏㄚㄌ ㄍㄛ-ㄌㄝㄋ","你有用 WhatsApp 嗎？","Do you use WhatsApp?","d",""],
+["আমি কি আপনাকে হোয়াটসঅ্যাপে অ্যাড করতে পারি?","ami ki apnake hoatsape ad korte pari?","ㄚ-ㄇㄧ ㄍㄧ ㄚㄅ-ㄋㄚ-ㄍㄝ ㄏㄡ-ㄧㄚㄉ-ㄙㄚ-ㄅㄝ ㄝㄉ ㄍㄛㄌ-ㄉㄝ ㄅㄚ-ㄌㄧ","我可以加你 WhatsApp 好友嗎？","Can I add you on WhatsApp?","df","⚠️ 原句後半意思錯了：আমি কি আপনার বন্ধুদের সাথে চ্যাট করতে পারি 是「我可以跟你的朋友們聊天嗎？」，不是「加你好友」。這句已改正。"],
+["আপনার নম্বরটা দেবেন?","apnar nombor-ta deben?","ㄚㄅ-ㄋㄚㄌ ㄋㄛㄇ-ㄅㄛㄌ-ㄉㄚ ㄉㄝ-ㄅㄝㄋ","可以給我你的電話號碼嗎？","Could you give me your number?","",""],
+["কাল কি আপনার সময় হবে?","kal ki apnar shomoy hobe?","ㄍㄚㄌ ㄍㄧ ㄚㄅ-ㄋㄚㄌ ㄕㄛ-ㄇㄛㄧ ㄏㄛ-ㄅㄝ","你明天有空嗎？","Are you free tomorrow?","",""],
+["আবার কবে দেখা করতে পারি?","abar kobe dekha korte pari?","ㄚ-ㄅㄚㄌ ㄍㄛ-ㄅㄝ ㄉㄝ-ㄎㄚ ㄍㄛㄌ-ㄉㄝ ㄅㄚ-ㄌㄧ","我們什麼時候可以再見面？","When can we meet again?","",""],
+["একসাথে ছবি তুলি?","eksathe chhobi tuli?","ㄝㄍ-ㄕㄚ-ㄊㄝ ㄑㄛ-ㄅㄧ ㄉㄨ-ㄌㄧ","一起拍張照好嗎？","Shall we take a photo together?","",""]
+]},
+{id:"gospel",name:"福音・讀經",note:"孟加拉的基督教用語有兩套：傳統教會說 যীশু খ্রীষ্ট（耶穌基督）；穆斯林背景的信徒和部分聖經譯本說 ঈসা মসীহ（爾撒彌賽亞），聖經叫 কিতাবুল মোকাদ্দস。跟穆斯林朋友談話時用哪一套比較好，請先問當地弟兄。",items:[
+["আমরা আপনার সাথে একটি বিশেষ বই শেয়ার করতে চাই — বাইবেল।","amra apnar shathe ekti bishesh boi sheyar korte chai — baibel","ㄚㄇ-ㄌㄚ ㄚㄅ-ㄋㄚㄌ ㄕㄚ-ㄊㄝ ㄝㄍ-ㄉㄧ ㄅㄧ-ㄕㄝㄕ ㄅㄛㄧ ㄕㄝ-ㄧㄚㄌ ㄍㄛㄌ-ㄉㄝ ㄐㄞ  ㄅㄞ-ㄅㄝㄌ","我們想跟你分享一本特別的書——聖經","We'd like to share a special book with you: the Bible.","df","原句用 ক্লাসিক বই（classic book），聽起來像「經典名著」。改成 বিশেষ বই（特別的書）比較自然。如果想保留「經典」的意思，原句也可以用。"],
+["আপনি কি কখনো বাইবেল পড়েছেন?","apni ki kokhono baibel porechhen?","ㄚㄅ-ㄋㄧ ㄍㄧ ㄍㄛ-ㄎㄛ-ㄋㄡ ㄅㄞ-ㄅㄝㄌ ㄅㄛ-ㄌㄝ-ㄑㄝㄋ","你有讀過聖經嗎？","Have you ever read the Bible?","df","加了 কখনো（ㄍㄛ-ㄎㄛ-ㄋㄡ，曾經），意思更接近「有沒有讀過」。"],
+["আমি আপনার সাথে একটা অংশ শেয়ার করতে চাই।","ami apnar shathe ekta ongsho sheyar korte chai","ㄚ-ㄇㄧ ㄚㄅ-ㄋㄚㄌ ㄕㄚ-ㄊㄝ ㄝㄍ-ㄉㄚ ㄛㄥ-ㄕㄛ ㄕㄝ-ㄧㄚㄌ ㄍㄛㄌ-ㄉㄝ ㄐㄞ","我想跟你分享一段","I'd like to share a passage with you.","df","原句 অনুচ্ছেদ ভাগ করে নিতে 是正確的書面語；অংশ、শেয়ার 比較口語，兩種都可以。"],
+["আপনি কি এই অংশটা আমাকে পড়ে শোনাবেন?","apni ki ei ongshota amake pore shonaben?","ㄚㄅ-ㄋㄧ ㄍㄧ ㄟ ㄛㄥ-ㄕㄛ-ㄉㄚ ㄚ-ㄇㄚ-ㄍㄝ ㄅㄛ-ㄌㄝ ㄕㄡ-ㄋㄚ-ㄅㄝㄋ","你可以把這一段唸給我聽嗎？","Could you read this passage aloud to me?","df","原句是「你可以幫我看這一段嗎」，意思有點模糊。如果是想請對方用孟加拉文唸出來，用這句；如果是請他讀完說說想法，用下一句。"],
+["এটা পড়ে আপনার কী মনে হয়?","eta pore apnar ki mone hoy?","ㄝ-ㄉㄚ ㄅㄛ-ㄌㄝ ㄚㄅ-ㄋㄚㄌ ㄍㄧ ㄇㄛ-ㄋㄝ ㄏㄛㄧ","讀了這段，你覺得怎麼樣？","What do you think after reading this?","",""],
+["আমরা কি আবার একসাথে পড়তে পারি?","amra ki abar eksathe porte pari?","ㄚㄇ-ㄌㄚ ㄍㄧ ㄚ-ㄅㄚㄌ ㄝㄍ-ㄕㄚ-ㄊㄝ ㄅㄛㄌ-ㄉㄝ ㄅㄚ-ㄌㄧ","我們可以再一起讀嗎？","Can we read together again?","",""],
+["আমি কি আপনার জন্য প্রার্থনা করতে পারি?","ami ki apnar jonno prarthona korte pari?","ㄚ-ㄇㄧ ㄍㄧ ㄚㄅ-ㄋㄚㄌ ㄐㄛㄋ-ㄋㄛ ㄅㄌㄚㄌ-ㄊㄛ-ㄋㄚ ㄍㄛㄌ-ㄉㄝ ㄅㄚ-ㄌㄧ","我可以為你禱告嗎？","May I pray for you?","",""],
+["যীশু","jishu","ㄐㄧ-ㄕㄨ","耶穌","Jesus","dw",""],
+["ঈসা","isa","ㄧ-ㄙㄚ","爾撒（穆斯林對耶穌的稱呼）","Isa (Jesus, Muslim usage)","w",""],
+["খ্রীষ্ট","khrishto","ㄎㄌㄧㄕ-ㄉㄛ","基督","Christ","dw",""],
+["খ্রীষ্টান","khrishtan","ㄎㄌㄧㄕ-ㄉㄢ","基督徒","Christian","dw",""],
+["বাইবেল","baibel","ㄅㄞ-ㄅㄝㄌ","聖經","the Bible","dfw","題庫裡「聖經」的孟加拉文誤寫成 ঈশ্বর，那是「神」的意思。聖經是 বাইবেল。"],
+["ঈশ্বর","ishshor","ㄧㄕ-ㄕㄛㄌ","神","God","dw","穆斯林多半說 আল্লাহ（Allah）。"],
+["বিশ্বাস করা","bishshash kora","ㄅㄧㄕ-ㄕㄚㄕ ㄍㄛ-ㄌㄚ","相信","to believe","dfw","題庫寫的 বিশ্বাস করুন 是命令句「請相信」；單講「相信」這個詞用 বিশ্বাস করা。"],
+["বাপ্তিস্ম","baptishmo","ㄅㄚㄅ-ㄉㄧㄙ-ㄇㄛ","受浸","baptism","dw",""],
+["প্রার্থনা","prarthona","ㄅㄌㄚㄌ-ㄊㄛ-ㄋㄚ","禱告","prayer","w",""],
+["সুসমাচার","shushomachar","ㄕㄨ-ㄕㄛ-ㄇㄚ-ㄐㄚㄌ","福音","gospel","w",""],
+["মুসলিম","muslim","ㄇㄨㄙ-ㄌㄧㄇ","穆斯林","Muslim","dw",""],
+["ইসলাম","islam","ㄧㄙ-ㄌㄚㄇ","伊斯蘭","Islam","dw",""],
+["কুরআন","kuran","ㄍㄨㄌ-ㄚㄋ","古蘭經","the Quran","dw",""]
+]},
+{id:"sos",name:"緊急狀況",items:[
+["সাহায্য করুন!","shahajjo korun!","ㄕㄚ-ㄏㄚㄐ-ㄐㄛ ㄍㄛ-ㄌㄨㄋ","救命！請幫幫我！","Help!","",""],
+["আমি অসুস্থ।","ami oshustho","ㄚ-ㄇㄧ ㄛ-ㄕㄨㄙ-ㄊㄛ","我生病了","I'm sick.","",""],
+["ডাক্তার লাগবে।","daktar lagbe","ㄉㄚㄍ-ㄉㄚㄌ ㄌㄚㄍ-ㄅㄝ","我需要看醫生","I need a doctor.","",""],
+["কাছে হাসপাতাল কোথায়?","kachhe hashpatal kothay?","ㄍㄚ-ㄑㄝ ㄏㄚㄙ-ㄅㄚ-ㄉㄚㄌ ㄍㄡ-ㄊㄞ","附近的醫院在哪裡？","Where is the nearest hospital?","",""],
+["ফার্মেসি কোথায়?","pharmesi kothay?","ㄈㄚㄌ-ㄇㄝ-ㄙㄧ ㄍㄡ-ㄊㄞ","藥局在哪裡？","Where is a pharmacy?","",""],
+["আমি পথ হারিয়ে ফেলেছি।","ami poth hariye phelechhi","ㄚ-ㄇㄧ ㄅㄛㄊ ㄏㄚ-ㄌㄧ-ㄝ ㄈㄝ-ㄌㄝ-ㄑㄧ","我迷路了","I'm lost.","",""],
+["আমাকে এই ঠিকানায় নিয়ে যান।","amake ei thikanay niye jan","ㄚ-ㄇㄚ-ㄍㄝ ㄟ ㄊㄧ-ㄍㄚ-ㄋㄞ ㄋㄧ-ㄝ ㄐㄚㄋ","請帶我到這個地址","Please take me to this address.","","同時給對方看寫好的地址。"],
+["আমার মানিব্যাগ হারিয়ে গেছে।","amar manibyag hariye gechhe","ㄚ-ㄇㄚㄌ ㄇㄚ-ㄋㄧ-ㄅㄝㄍ ㄏㄚ-ㄌㄧ-ㄝ ㄍㄝ-ㄑㄝ","我的錢包不見了","I lost my wallet.","",""],
+["পুলিশ ডাকুন।","pulish dakun","ㄅㄨ-ㄌㄧㄕ ㄉㄚ-ㄍㄨㄋ","請叫警察","Please call the police.","",""]
+]}
+];
+/* 數字：[數字, 孟加拉文, 羅馬拼音, 注音] */
+const NUMS=[[0,"শূন্য","shunno","ㄕㄨㄋ-ㄋㄛ"],[1,"এক","ek","ㄝㄍ"],[2,"দুই","dui","ㄉㄨ-ㄧ"],[3,"তিন","tin","ㄉㄧㄋ"],[4,"চার","char","ㄐㄚㄌ"],[5,"পাঁচ","panch","ㄅㄢㄐ"],[6,"ছয়","chhoy","ㄑㄛㄧ"],[7,"সাত","shat","ㄕㄚㄉ"],[8,"আট","at","ㄚㄉ"],[9,"নয়","noy","ㄋㄛㄧ"],[10,"দশ","dosh","ㄉㄛㄕ"],
+[11,"এগারো","egaro","ㄝ-ㄍㄚ-ㄌㄡ"],[12,"বারো","baro","ㄅㄚ-ㄌㄡ"],[13,"তেরো","tero","ㄉㄝ-ㄌㄡ"],[14,"চোদ্দ","choddo","ㄐㄡㄉ-ㄉㄛ"],[15,"পনেরো","ponero","ㄅㄛ-ㄋㄝ-ㄌㄡ"],[16,"ষোল","sholo","ㄕㄡ-ㄌㄛ"],[17,"সতেরো","shotero","ㄕㄛ-ㄉㄝ-ㄌㄡ"],[18,"আঠারো","atharo","ㄚ-ㄊㄚ-ㄌㄡ"],[19,"উনিশ","unish","ㄨ-ㄋㄧㄕ"],[20,"বিশ","bish","ㄅㄧㄕ"],
+[21,"একুশ","ekush","ㄝ-ㄍㄨㄕ"],[22,"বাইশ","baish","ㄅㄞㄕ"],[23,"তেইশ","teish","ㄉㄝ-ㄧㄕ"],[24,"চব্বিশ","chobbish","ㄐㄛㄅ-ㄅㄧㄕ"],[25,"পঁচিশ","ponchish","ㄅㄛㄋ-ㄐㄧㄕ"],[26,"ছাব্বিশ","chhabbish","ㄑㄚㄅ-ㄅㄧㄕ"],[27,"সাতাশ","shatash","ㄕㄚ-ㄉㄚㄕ"],[28,"আটাশ","atash","ㄚ-ㄉㄚㄕ"],[29,"ঊনত্রিশ","unotrish","ㄨ-ㄋㄛㄉ-ㄌㄧㄕ"],[30,"ত্রিশ","trish","ㄉㄌㄧㄕ"],
+[31,"একত্রিশ","ektrish","ㄝㄍ-ㄉㄌㄧㄕ"],[32,"বত্রিশ","botrish","ㄅㄛㄉ-ㄌㄧㄕ"],[33,"তেত্রিশ","tetrish","ㄉㄝㄉ-ㄌㄧㄕ"],[34,"চৌত্রিশ","choutrish","ㄐㄡ-ㄉㄌㄧㄕ"],[35,"পঁয়ত্রিশ","poyotrish","ㄅㄛ-ㄧㄛ-ㄉㄌㄧㄕ"],[36,"ছত্রিশ","chhotrish","ㄑㄛㄉ-ㄌㄧㄕ"],[37,"সাঁইত্রিশ","shaitrish","ㄕㄞ-ㄉㄌㄧㄕ"],[38,"আটত্রিশ","attrish","ㄚㄉ-ㄉㄌㄧㄕ"],[39,"ঊনচল্লিশ","unochollish","ㄨ-ㄋㄛ-ㄐㄛㄌ-ㄌㄧㄕ"],[40,"চল্লিশ","chollish","ㄐㄛㄌ-ㄌㄧㄕ"],
+[41,"একচল্লিশ","ekchollish","ㄝㄍ-ㄐㄛㄌ-ㄌㄧㄕ"],[42,"বিয়াল্লিশ","biyallish","ㄅㄧ-ㄧㄚㄌ-ㄌㄧㄕ"],[43,"তেতাল্লিশ","tetallish","ㄉㄝ-ㄉㄚㄌ-ㄌㄧㄕ"],[44,"চুয়াল্লিশ","chuyallish","ㄐㄨ-ㄧㄚㄌ-ㄌㄧㄕ"],[45,"পঁয়তাল্লিশ","poyotallish","ㄅㄛ-ㄧㄛ-ㄉㄚㄌ-ㄌㄧㄕ"],[46,"ছেচল্লিশ","chhechollish","ㄑㄝ-ㄐㄛㄌ-ㄌㄧㄕ"],[47,"সাতচল্লিশ","shatchollish","ㄕㄚㄉ-ㄐㄛㄌ-ㄌㄧㄕ"],[48,"আটচল্লিশ","atchollish","ㄚㄉ-ㄐㄛㄌ-ㄌㄧㄕ"],[49,"ঊনপঞ্চাশ","unoponchash","ㄨ-ㄋㄛ-ㄅㄛㄋ-ㄐㄚㄕ"],[50,"পঞ্চাশ","ponchash","ㄅㄛㄋ-ㄐㄚㄕ"],
+[51,"একান্ন","ekanno","ㄝ-ㄍㄚㄋ-ㄋㄛ"],[52,"বাহান্ন","bahanno","ㄅㄚ-ㄏㄚㄋ-ㄋㄛ"],[53,"তিপ্পান্ন","tippanno","ㄉㄧㄅ-ㄅㄚㄋ-ㄋㄛ"],[54,"চুয়ান্ন","chuyanno","ㄐㄨ-ㄧㄚㄋ-ㄋㄛ"],[55,"পঞ্চান্ন","ponchanno","ㄅㄛㄋ-ㄐㄚㄋ-ㄋㄛ"],[56,"ছাপ্পান্ন","chhappanno","ㄑㄚㄅ-ㄅㄚㄋ-ㄋㄛ"],[57,"সাতান্ন","shatanno","ㄕㄚ-ㄉㄚㄋ-ㄋㄛ"],[58,"আটান্ন","atanno","ㄚ-ㄉㄚㄋ-ㄋㄛ"],[59,"ঊনষাট","unoshat","ㄨ-ㄋㄛ-ㄕㄚㄉ"],[60,"ষাট","shat","ㄕㄚㄉ"],
+[61,"একষট্টি","ekshotti","ㄝㄍ-ㄕㄛㄉ-ㄉㄧ"],[62,"বাষট্টি","bashotti","ㄅㄚ-ㄕㄛㄉ-ㄉㄧ"],[63,"তেষট্টি","teshotti","ㄉㄝ-ㄕㄛㄉ-ㄉㄧ"],[64,"চৌষট্টি","choushotti","ㄐㄡ-ㄕㄛㄉ-ㄉㄧ"],[65,"পঁয়ষট্টি","poyshotti","ㄅㄛㄧ-ㄕㄛㄉ-ㄉㄧ"],[66,"ছেষট্টি","chheshotti","ㄑㄝ-ㄕㄛㄉ-ㄉㄧ"],[67,"সাতষট্টি","shatshotti","ㄕㄚㄉ-ㄕㄛㄉ-ㄉㄧ"],[68,"আটষট্টি","atshotti","ㄚㄉ-ㄕㄛㄉ-ㄉㄧ"],[69,"ঊনসত্তর","unoshottor","ㄨ-ㄋㄛ-ㄕㄛㄉ-ㄉㄛㄌ"],[70,"সত্তর","shottor","ㄕㄛㄉ-ㄉㄛㄌ"],
+[71,"একাত্তর","ekattor","ㄝ-ㄍㄚㄉ-ㄉㄛㄌ"],[72,"বাহাত্তর","bahattor","ㄅㄚ-ㄏㄚㄉ-ㄉㄛㄌ"],[73,"তিয়াত্তর","tiyattor","ㄉㄧ-ㄧㄚㄉ-ㄉㄛㄌ"],[74,"চুয়াত্তর","chuyattor","ㄐㄨ-ㄧㄚㄉ-ㄉㄛㄌ"],[75,"পঁচাত্তর","ponchattor","ㄅㄛㄋ-ㄐㄚㄉ-ㄉㄛㄌ"],[76,"ছিয়াত্তর","chhiyattor","ㄑㄧ-ㄧㄚㄉ-ㄉㄛㄌ"],[77,"সাতাত্তর","shatattor","ㄕㄚ-ㄉㄚㄉ-ㄉㄛㄌ"],[78,"আটাত্তর","atattor","ㄚ-ㄉㄚㄉ-ㄉㄛㄌ"],[79,"ঊনআশি","unoashi","ㄨ-ㄋㄛ-ㄚ-ㄕㄧ"],[80,"আশি","ashi","ㄚ-ㄕㄧ"],
+[81,"একাশি","ekashi","ㄝ-ㄍㄚ-ㄕㄧ"],[82,"বিরাশি","birashi","ㄅㄧ-ㄌㄚ-ㄕㄧ"],[83,"তিরাশি","tirashi","ㄉㄧ-ㄌㄚ-ㄕㄧ"],[84,"চুরাশি","churashi","ㄐㄨ-ㄌㄚ-ㄕㄧ"],[85,"পঁচাশি","ponchashi","ㄅㄛㄋ-ㄐㄚ-ㄕㄧ"],[86,"ছিয়াশি","chhiyashi","ㄑㄧ-ㄧㄚ-ㄕㄧ"],[87,"সাতাশি","shatashi","ㄕㄚ-ㄉㄚ-ㄕㄧ"],[88,"অষ্টাশি","oshtashi","ㄛㄕ-ㄉㄚ-ㄕㄧ"],[89,"ঊননব্বই","unonobbui","ㄨ-ㄋㄛ-ㄋㄛㄅ-ㄅㄨㄧ"],[90,"নব্বই","nobbui","ㄋㄛㄅ-ㄅㄨㄧ"],
+[91,"একানব্বই","ekanobbui","ㄝ-ㄍㄚ-ㄋㄛㄅ-ㄅㄨㄧ"],[92,"বিরানব্বই","biranobbui","ㄅㄧ-ㄌㄚ-ㄋㄛㄅ-ㄅㄨㄧ"],[93,"তিরানব্বই","tiranobbui","ㄉㄧ-ㄌㄚ-ㄋㄛㄅ-ㄅㄨㄧ"],[94,"চুরানব্বই","churanobbui","ㄐㄨ-ㄌㄚ-ㄋㄛㄅ-ㄅㄨㄧ"],[95,"পঁচানব্বই","ponchanobbui","ㄅㄛㄋ-ㄐㄚ-ㄋㄛㄅ-ㄅㄨㄧ"],[96,"ছিয়ানব্বই","chhiyanobbui","ㄑㄧ-ㄧㄚ-ㄋㄛㄅ-ㄅㄨㄧ"],[97,"সাতানব্বই","shatanobbui","ㄕㄚ-ㄉㄚ-ㄋㄛㄅ-ㄅㄨㄧ"],[98,"আটানব্বই","atanobbui","ㄚ-ㄉㄚ-ㄋㄛㄅ-ㄅㄨㄧ"],[99,"নিরানব্বই","niranobbui","ㄋㄧ-ㄌㄚ-ㄋㄛㄅ-ㄅㄨㄧ"],[100,"একশো","eksho","ㄝㄍ-ㄕㄡ"],
+[200,"দুইশো","duisho","ㄉㄨ-ㄧ-ㄕㄡ"],[500,"পাঁচশো","panchsho","ㄅㄢㄐ-ㄕㄡ"],[1000,"এক হাজার","ek hajar","ㄝㄍ ㄏㄚ-ㄐㄚㄌ"]];
+const BNDIG="০১২৩৪৫৬৭৮৯";const toBn=n=>String(n).replace(/\d/g,d=>BNDIG[d]);
+
+/* ---------- 狀態（存在這台裝置） ---------- */
+const LS={get(k,d){try{const v=localStorage.getItem("bnp_"+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem("bnp_"+k,JSON.stringify(v))}catch(e){}}};
+let cur=LS.get("cat","greet"),slow=LS.get("slow",false),stars=new Set(LS.get("stars",[])),notesAll=LS.get("notesAll",false);
+const SHOW=LS.get("show",{bn:1,zy:1,ro:0,zh:1,en:1});
+const FS=[0.9,1,1.15,1.3,1.5];let fsi=LS.get("fsi",1);if(!(fsi>=0&&fsi<FS.length))fsi=1;
+const ALL=[];CATS.forEach(c=>(c.items||[]).forEach((it,i)=>ALL.push({c:c.id,cn:c.name,id:c.id+i,key:"p-"+c.id+"-"+i,bn:it[0],ro:it[1],zy:it[2],zh:it[3],en:it[4],fl:it[5]||"",note:it[6]||""})));
+
+/* ---------- 發音：預錄（離線）→ 手機語音 ---------- */
+let AUD=null,voices=[];
+fetch("a/index.json").then(r=>r.ok?r.json():null).then(j=>{AUD=j}).catch(()=>{});
+const blobUrls={};
+function fileUrl(f){return blobUrls[f]||(blobUrls[f]=fetch("a/"+f).then(r=>{if(!r.ok)throw new Error(r.status);return r.blob()}).then(b=>URL.createObjectURL(b)).catch(e=>{delete blobUrls[f];throw e}))}
+const PL=new Audio();PL.preload="auto";try{PL.preservesPitch=true;PL.webkitPreservesPitch=true}catch(e){}
+let clipTimer=null,clipDone=null,speakToken=0;
+function stopAll(){speakToken++;clearInterval(clipTimer);try{PL.pause()}catch(e){}try{speechSynthesis&&speechSynthesis.cancel()}catch(e){}const d=clipDone;clipDone=null;if(d)d()}
+async function playClip(key,from,to,onEnd){
+  const c=AUD&&AUD.c[key];if(!c)return false;
+  stopAll();const tok=speakToken;
+  let url;try{url=await fileUrl(AUD.f[c[0]])}catch(e){return false}
+  if(tok!==speakToken)return true;
+  const s=from!=null?from:c[1],e=to!=null?to:c[2];
+  clipDone=onEnd||null;
+  const finish=()=>{if(tok!==speakToken)return;clearInterval(clipTimer);PL.pause();const d=clipDone;clipDone=null;if(d)d()};
+  if(PL.src!==url)PL.src=url;
+  PL.playbackRate=slow?0.75:1;
+  const go=()=>{try{PL.currentTime=s}catch(er){}PL.playbackRate=slow?0.75:1;PL.play().catch(()=>finish());
+    clearInterval(clipTimer);clipTimer=setInterval(()=>{if(PL.currentTime>=e||PL.ended)finish()},25)};
+  if(PL.readyState>=1)go();else PL.addEventListener("loadedmetadata",go,{once:true});
+  return true}
+function loadVoices(){try{voices=speechSynthesis.getVoices()}catch(e){voices=[]}}
+if("speechSynthesis" in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices}
+function pickVoice(lang){const L=voices.filter(v=>v.lang&&v.lang.replace("_","-").toLowerCase().startsWith(lang));
+  const pref=lang==="bn"?["bn-bd","bn-in","bn"]:["en-us","en-gb","en"];
+  for(const p of pref){const c=L.filter(v=>v.lang.replace("_","-").toLowerCase().startsWith(p));if(c.length){return c.find(v=>/natural|enhanced|premium|neural|google/i.test(v.name))||c[0]}}return null}
+function toast(t,ms){const el=document.getElementById("toast");el.textContent=t;el.style.display="block";clearTimeout(toast._t);toast._t=setTimeout(()=>el.style.display="none",ms||2500)}
+async function say(text,lang,onEnd){
+  stopAll();const tok=speakToken;const done=()=>{if(tok===speakToken&&onEnd)onEnd()};
+  if(!("speechSynthesis" in window)){toast("這個瀏覽器不能發音");done();return}
+  const v=pickVoice(lang);
+  if(!v&&lang==="bn"){toast("這句沒有預錄，這台手機也沒有孟加拉語語音。",4000);done();return}
+  const u=new SpeechSynthesisUtterance(text);u.lang=v?v.lang:(lang==="bn"?"bn-BD":"en-US");if(v)u.voice=v;u.rate=slow?0.6:0.95;
+  u.onend=done;u.onerror=done;speechSynthesis.speak(u);
+}
+const normW=w=>w.replace(/[।?!,.;:—…“”"'()\/]/g,"").trim();
+/* 唸整句（或點到的那個字）：先用預錄，沒有才用手機語音 */
+async function speakItem(el,key,text,wordEl){
+  const mark=wordEl||el;mark.classList.add("now");const off=()=>mark.classList.remove("now");
+  const c=AUD&&AUD.c[key];
+  if(c&&wordEl){const ws=c[3]||[];const target=normW(wordEl.textContent);
+    const all=[...el.querySelectorAll(".w")];const idx=all.indexOf(wordEl);
+    let hit=ws.find(w=>normW(w[0])===target);
+    if(!hit&&ws.length===all.length)hit=ws[idx];
+    if(hit&&await playClip(key,Math.max(c[1],hit[1]-0.04),Math.min(c[2],hit[1]+hit[2]+0.1),off))return}
+  else if(c&&await playClip(key,null,null,off))return;
+  say((wordEl?wordEl.textContent:text).replace(/[।?!,—…\/]/g," "),"bn",off)}
+
+/* ---------- 小工具 ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const zyH=s=>String(s).split(/(\s+)/).map(w=>/\s/.test(w)||!w?w:'<span style="white-space:nowrap">'+esc(w)+'</span>').join('');
+const bnWords=(bn,isWord)=>isWord?esc(bn):bn.split(/(\s+)/).map(w=>/\s/.test(w)||!w?w:'<span class="w">'+esc(w)+"</span>").join("");
+function bindWordTaps(el,it){el.onclick=e=>{const w=e.target.closest(".w");speakItem(el,it.key,it.bn,w||null)}}
+
+/* ---------- 給對方看 ---------- */
+let showList=[],showIdx=0;
+function openShow(list,idx){showList=list;showIdx=idx;fillShow();$("#show").classList.add("open");document.body.style.overflow="hidden"}
+function fillShow(){const it=showList[showIdx];const b=$("#sBn");b.innerHTML=bnWords(it.bn,it.fl.includes("w"));bindWordTaps(b,it);
+  $("#sZh").textContent=it.zh;$("#sPrev").disabled=showIdx<=0;$("#sNext").disabled=showIdx>=showList.length-1;
+  $("#sPrev").style.visibility=showList.length>1?"visible":"hidden";$("#sNext").style.visibility=showList.length>1?"visible":"hidden"}
+function closeShow(){$("#show").classList.remove("open");document.body.style.overflow="";stopAll()}
+$("#showX").onclick=closeShow;
+$("#sPlay").onclick=()=>{const it=showList[showIdx];speakItem($("#sBn"),it.key,it.bn,null)};
+$("#sPrev").onclick=()=>{if(showIdx>0){showIdx--;fillShow()}};
+$("#sNext").onclick=()=>{if(showIdx<showList.length-1){showIdx++;fillShow()}};
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeShow();closeSheet()}});
+
+/* ---------- 設定 ---------- */
+function openSheet(){$("#sheet").classList.add("open");$("#sheetBg").classList.add("open")}
+function closeSheet(){$("#sheet").classList.remove("open");$("#sheetBg").classList.remove("open")}
+$("#gear").onclick=openSheet;$("#sheetX").onclick=closeSheet;$("#sheetBg").onclick=closeSheet;
+function showOpts(){const o=$("#showOpts");o.innerHTML="";
+  [["bn","孟加拉文"],["zy","注音"],["ro","拼音"],["zh","中文"],["en","英文"]].forEach(([k,n])=>{const b=document.createElement("button");b.className="chip"+(SHOW[k]?" on":"");b.textContent=(SHOW[k]?"✓ ":"")+n;b.setAttribute("aria-pressed",!!SHOW[k]);b.onclick=()=>{SHOW[k]=SHOW[k]?0:1;LS.set("show",SHOW);showOpts();applyShow()};o.appendChild(b)})}
+function applyShow(){["bn","zy","ro","zh","en"].forEach(k=>document.body.classList.toggle("hide-"+k,!SHOW[k]))}
+function applyFs(){document.body.style.setProperty("--fs",FS[fsi]);$("#fsVal").textContent=(fsi+1)+" / "+FS.length;$("#fsDown").disabled=fsi===0;$("#fsUp").disabled=fsi===FS.length-1}
+$("#fsDown").onclick=()=>{if(fsi>0){fsi--;LS.set("fsi",fsi);applyFs()}};
+$("#fsUp").onclick=()=>{if(fsi<FS.length-1){fsi++;LS.set("fsi",fsi);applyFs()}};
+function applyNotesAll(){const b=$("#notesAll");b.classList.toggle("on",notesAll);b.textContent=(notesAll?"✓ ":"")+"預設展開說明"}
+$("#notesAll").onclick=()=>{notesAll=!notesAll;LS.set("notesAll",notesAll);applyNotesAll();render()};
+const sb=$("#slow");const setSlow=()=>{sb.classList.toggle("on",slow);sb.setAttribute("aria-pressed",slow)};sb.onclick=()=>{slow=!slow;LS.set("slow",slow);setSlow();toast(slow?"已切換成慢速":"已切換成正常速度",1500)};
+
+/* ---------- 畫面 ---------- */
+function tabs(){const t=$("#tabs");t.innerHTML="";
+  [{id:"star",name:"★ 收藏"},...CATS.map(c=>({id:c.id,name:c.name}))].forEach(c=>{const b=document.createElement("button");b.className="chip"+(c.id===cur?" on":"");b.textContent=c.name;
+    b.onclick=()=>{cur=c.id;LS.set("cat",cur);$("#q").value="";tabs();render();window.scrollTo(0,0)};t.appendChild(b);if(c.id===cur)setTimeout(()=>b.scrollIntoView({inline:"center",block:"nearest"}),0)})}
+function card(it,list,idx){const d=document.createElement("div");d.className="card";
+  const tags=(it.fl.includes("d")?'<span class="tag d">你的題庫</span>':"")+(it.fl.includes("f")?'<span class="tag f">已修正</span>':"");
+  d.innerHTML=(tags?"<div>"+tags+"</div>":"")+'<div class="bn"></div><div class="zy">'+zyH(it.zy)+'</div><div class="ro">'+esc(it.ro)+'</div><div class="zh">'+esc(it.zh)+'</div><div class="en">'+esc(it.en)+"</div>"+
+   (it.note?'<div class="note'+(it.fl.includes("f")?"":" i")+'"'+(notesAll?"":" hidden")+">"+esc(it.note)+"</div>":"")+
+   '<div class="acts"><button class="act main play">▶ 唸</button><button class="act showb">⤢ 給對方看</button>'+
+   (it.note?'<button class="act ghost nb'+(notesAll?" on":"")+'" aria-expanded="'+notesAll+'">ⓘ 說明</button>':"")+
+   '<button class="act star'+(stars.has(it.id)?" on":"")+'" aria-label="收藏">'+(stars.has(it.id)?"★":"☆")+"</button></div>";
+  const bnEl=d.querySelector(".bn");bnEl.innerHTML=bnWords(it.bn,it.fl.includes("w"));bindWordTaps(bnEl,it);
+  d.querySelector(".play").onclick=()=>speakItem(bnEl,it.key,it.bn,null);
+  d.querySelector(".showb").onclick=()=>openShow(list,idx);
+  const nb=d.querySelector(".nb");if(nb)nb.onclick=()=>{const n=d.querySelector(".note");const h=!n.hidden;n.hidden=h;nb.classList.toggle("on",!h);nb.setAttribute("aria-expanded",!h)};
+  d.querySelector(".star").onclick=e=>{stars.has(it.id)?stars.delete(it.id):stars.add(it.id);LS.set("stars",[...stars]);const s=e.currentTarget;s.classList.toggle("on");s.textContent=stars.has(it.id)?"★":"☆";if(cur==="star")render()};
+  return d}
+function cards(m,list){list.forEach((it,i)=>m.appendChild(card(it,list,i)))}
+function numGrid(list){const g=document.createElement("div");g.className="grid";
+  list.forEach(n=>{const b=document.createElement("button");b.className="num";
+    b.innerHTML='<div class="n">'+n[0]+"　"+toBn(n[0])+'</div><div class="b">'+esc(n[1])+'</div><div class="z">'+esc(n[3])+'</div><div class="r">'+esc(n[2])+"</div>";
+    b.onclick=()=>speakItem(b,"n-"+n[0],n[1],null);g.appendChild(b)});return g}
+function hint(m){if(LS.get("hint1",false))return;const h=document.createElement("div");h.className="hint";
+  h.innerHTML="<p>小提示：按 <b>▶ 唸</b> 唸整句，點孟加拉文的某個字只唸那個字。要問路、點餐時，按 <b>⤢ 給對方看</b>，句子會放大成全螢幕。</p><button>知道了</button>";
+  h.querySelector("button").onclick=()=>{LS.set("hint1",true);h.remove()};m.appendChild(h)}
+function render(){const m=$("#main");m.innerHTML="";hint(m);const q=$("#q").value.trim().toLowerCase();
+  if(q){const r=ALL.filter(it=>[it.bn,it.ro,it.zy,it.zh,it.en].join(" ").toLowerCase().includes(q));
+    const nr=NUMS.filter(n=>String(n[0])===q||n[1].includes(q)||n[2].includes(q));
+    if(!r.length&&!nr.length){m.insertAdjacentHTML("beforeend",'<div class="empty">找不到「'+esc(q)+'」</div>');return}
+    let last="";r.forEach((it,i)=>{if(it.cn!==last){const h=document.createElement("h2");h.textContent=it.cn;m.appendChild(h);last=it.cn}m.appendChild(card(it,r,i))});
+    if(nr.length){const h=document.createElement("h2");h.textContent="數字";m.appendChild(h);m.appendChild(numGrid(nr))}return}
+  if(cur==="star"){const r=ALL.filter(it=>stars.has(it.id));if(!r.length){m.insertAdjacentHTML("beforeend",'<div class="empty">按句子右下角的 ☆ 收藏常用的句子，會出現在這裡。</div>');return}cards(m,r);return}
+  const c=CATS.find(x=>x.id===cur)||CATS[0];
+  if(c.note){const n=document.createElement("div");n.className="secnote";n.textContent=c.note;m.appendChild(n)}
+  if(c.nums){const n=document.createElement("div");n.className="secnote";n.textContent="點一下就唸。孟加拉語的 1–100 每個數字都有自己的說法，不像中文是組合的，所以全部列出。注意 7 সাত 和 60 ষাট 聽起來很像，買東西時可以用手指比或寫下來確認。";m.appendChild(n);m.appendChild(numGrid(NUMS));return}
+  cards(m,ALL.filter(a=>a.c===c.id))}
+$("#q").addEventListener("input",render);
+setSlow();showOpts();applyShow();applyFs();applyNotesAll();tabs();render();
+</script>
+<script>
+if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('../sw.js').catch(()=>{});
+if(navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(()=>{});
+</script>
+</body>
+</html>

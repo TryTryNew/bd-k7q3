@@ -1,0 +1,14 @@
+{
+  "name": "伊斯蘭教與基督教：福音書對照筆記",
+  "short_name": "對照筆記",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#faf6ee",
+  "theme_color": "#1f4e4a",
+  "lang": "zh-Hant",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
