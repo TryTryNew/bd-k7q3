@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>紡紗針織廠現場手冊</title>
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" href="../icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="孟加拉筆記">
+<style>
+/* VOICE: 冷靜、實用的現場手冊，像工程師隨身的筆記本，不推銷
+   IDEA: 一條棉花變成布的「紗路」— 從棉包到筒紗到坯布，縫線虛線串起每個工站
+   PICTURE: 頂部工站帶：棉包→清花→梳棉→併條→轉杯紡→筒紗→圓編→坯布
+   COLOUR and TYPE: 白底、深靛藍為主、棉白與縫線紅點綴；Noto Serif TC 標題 + Noto Sans TC 內文
+   LAYOUT: 標題+工站帶，一排章節連結；入門直接顯示，深入可展開；最後是口袋小抄 */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#0f1420);--ink:light-dark(#141a2b,#e8ebf2);--mute:light-dark(#525a6e,#a5adbf);
+--indigo:light-dark(#243b7a,#8ea8f0);--deep:#1b2b5c;--red:light-dark(#c8323f,#ff7a84);
+--khaki:light-dark(#f1ece1,#1d2436);--line:light-dark(#dfe3ec,#2a3247);--card:light-dark(#f5f6fa,#161d2d);
+--ok:light-dark(#1d7a46,#6fd39a);--warn:light-dark(#a35c00,#f2b45a);--bad:light-dark(#b3261e,#ff8a80)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 -apple-system,"PingFang TC","Noto Sans TC",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"Songti TC","Noto Serif TC","Noto Serif CJK TC",serif;line-height:1.2;text-wrap:balance;margin:0}
+h1{font-size:clamp(28px,5.5vw,44px)}h2{font-size:clamp(23px,4vw,30px);margin-bottom:.4em}h3{font-size:19px;margin:1.3em 0 .4em}
+.band{padding:clamp(26px,4vw,52px) max(5vw,16px)}.wrap{max-width:1000px;margin:0 auto}
+header{background:var(--deep);color:#f2f4fa}
+header p{color:#c9d2ea;max-width:64ch;margin:.6em 0 0}
+.meta{font-size:13px;color:#aab6d6;margin-top:16px}
+.road{display:flex;gap:0;margin-top:26px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x proximity}
+.stn{flex:1 0 92px;text-align:center;position:relative;scroll-snap-align:start}
+.stn::after{content:"";position:absolute;left:50%;right:-50%;top:33px;border-top:3px dashed #e86a74;z-index:0}
+.stn:last-child::after{display:none}
+.dot{width:66px;height:66px;margin:0 auto;border-radius:50%;background:#2d4386;border:3px solid #f2f4fa;display:grid;place-items:center;position:relative;z-index:1}
+.dot svg{width:40px;height:40px}
+.stn b{display:block;font-size:14px;margin-top:6px}.stn span{display:block;font-size:12.5px;color:#aab6d6;line-height:1.35}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .scroll{display:flex;gap:2px;padding:6px max(5vw,10px);overflow-x:auto;white-space:nowrap}
+nav a{flex:none;padding:10px 11px;border-radius:8px;color:var(--ink);text-decoration:none;font-size:15px}
+nav a:hover,nav a:focus-visible{background:var(--card);outline:2px solid var(--indigo)}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+button{font:inherit;font-size:15px;min-height:44px;padding:0 16px;border-radius:10px;border:1.5px solid var(--indigo);background:var(--bg);color:var(--indigo);cursor:pointer;touch-action:manipulation}
+button[aria-pressed=true]{background:var(--indigo);color:var(--bg)}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+section{border-top:1px solid var(--line)}
+.lead{color:var(--mute);margin-top:0}
+ol.steps{list-style:none;padding:0;margin:0;counter-reset:s}
+ol.steps li{position:relative;padding:0 0 16px 52px;counter-increment:s;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;background:var(--indigo);color:var(--bg);display:grid;place-items:center;font-weight:700}
+ol.steps li::after{content:"";position:absolute;left:17px;top:40px;bottom:2px;border-left:2px dashed var(--red)}
+ol.steps li:last-child::after{display:none}
+.en{color:var(--indigo);font-size:14px;font-weight:500}
+.see{display:block;font-size:14.5px;color:var(--mute)}
+.see::before{content:"現場看：";color:var(--red);font-weight:700}
+details.deep{margin-top:18px;background:var(--khaki);border-radius:12px;padding:2px 18px}
+details.deep>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:700;color:var(--indigo);list-style-position:inside}
+details.deep[open]{padding-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:14px;color:var(--mute);font-weight:500}
+.terms{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.term{background:var(--card);border-radius:10px;padding:12px 14px;border-left:4px solid var(--indigo)}
+.term b{display:block;font-size:16px}.term i{font-style:normal;color:var(--red);font-size:14px;font-weight:500}
+.term p{margin:4px 0 0;font-size:15px}
+.grp{font-weight:700;color:var(--mute);font-size:15px;margin:22px 0 8px}
+input[type=search]{font:inherit;font-size:16px;min-height:44px;padding:0 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);width:min(100%,360px)}
+.note{border-left:4px solid var(--red);padding:10px 14px;background:var(--card);border-radius:0 10px 10px 0;margin:14px 0}
+.say{display:grid;gap:8px;margin:12px 0}
+.say div{background:var(--card);border-radius:10px;padding:10px 14px}
+.say .no{opacity:.85}
+.say b{display:inline-block;min-width:3.5em;font-size:13px;padding:1px 8px;border-radius:99px;margin-right:6px;text-align:center}
+.say .yes b{background:var(--ok);color:var(--bg)}.say .no b{background:var(--bad);color:var(--bg)}
+.tag{display:inline-block;font-size:13px;font-weight:700;padding:1px 9px;border-radius:99px;white-space:nowrap;color:var(--bg)}
+.t-ok{background:var(--ok)}.t-part{background:var(--warn)}.t-no{background:var(--mute)}.t-bad{background:var(--bad)}
+.calc{background:var(--card);border-radius:12px;padding:14px 16px;margin:12px 0}
+.calc code{font-family:inherit;font-weight:700;color:var(--indigo)}
+.pocket{background:var(--deep);color:#eef1f8}
+.pocket h2{color:#fff}.pocket .lead{color:#c9d2ea}
+.pc{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.pc>div{background:#24376e;border-radius:12px;padding:14px 16px}
+.pc h3{margin:0 0 6px;font-size:17px;color:#fff}
+.pc ul,.pc ol{margin:0;padding-left:1.2em;font-size:15px}
+.pc li{margin:.2em 0}
+.pocket button{border-color:#f2f4fa;color:#f2f4fa;background:transparent}
+
+.chain{margin:14px 0 6px}
+.cg{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));column-gap:3px;row-gap:4px}
+.cr{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));column-gap:3px}
+.cb{color:#fff;font-weight:700;text-align:center;padding:8px 2px;font-size:clamp(13px,2.6vw,19px);line-height:1.2;display:flex;flex-direction:column;justify-content:center;min-height:52px}
+.cb small{display:block;font-weight:400;font-size:11.5px;opacity:.9}
+.c1{background:#8f979c}.c2{background:#3a3a3a}.c3{background:#5b2287}.c4{background:#8a5246}.c5{background:#f2a900;color:#1d1d1d}
+.co{position:relative;display:flex;flex-direction:column;align-items:center;padding:6px 0 0;min-height:52px}
+.co.st{align-items:flex-start}.co.en{align-items:flex-end}
+.co .ln{position:absolute;left:4px;right:4px;bottom:8px;border-top:1.5px solid #5b2287}
+.co .ln::before,.co .ln::after{content:"";position:absolute;top:-7px;height:13px;border-left:1.5px solid #5b2287}
+.co .ln::before{left:0}.co .ln::after{right:0}
+.co b,.co i{position:relative;z-index:1;background:var(--bg);white-space:nowrap;padding:0 6px;line-height:1.35}
+.co b{color:light-dark(#4a1c70,#c9a2ef);font-size:15.5px}
+.co i{font-style:normal;font-size:12px;color:var(--mute);margin-bottom:14px}
+.co.hl b{color:var(--red)}
+.mt td:first-child{white-space:nowrap}
+ul{padding-left:1.2em}li{margin:.25em 0}
+.src{font-size:13px;color:var(--mute)}
+footer{background:var(--deep);color:#c9d2ea;font-size:14px;border-top:1px solid #33467f}
+html{scroll-padding-top:64px}
+@media(max-width:600px){
+ .stn{flex-basis:78px}.dot{width:54px;height:54px}.dot svg{width:32px;height:32px}.stn::after{top:27px}.stn span{display:none}
+ table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}
+ .stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:5.5em;text-align:start}
+ .stack td::before{content:attr(data-l);float:inline-start;width:5em;margin-inline-start:-5.5em;color:var(--mute);font-size:13px}
+ .stack td:empty{display:none}}
+@media(prefers-reduced-motion:no-preference){details.deep[open]>*:not(summary){animation:in .25s ease}@keyframes in{from{opacity:0;transform:translateY(-4px)}}}
+</style>
+</head>
+<body>
+
+<header class="band">
+ <div class="wrap">
+  <a href="../" aria-label="回首頁" style="color:inherit;text-decoration:none;font-size:20px;display:inline-block;min-height:44px;line-height:44px">⌂ 首頁</a>
+  <h1>紡紗＋針織布廠 現場手冊</h1>
+  <p>為了到孟加拉納爾辛迪（Narsingdi）的 Fujian Onan Textile 看機器、給建議而準備。先看懂棉花怎麼變成紗、紗怎麼變成布，再知道在現場要看什麼、問什麼、記什麼。</p>
+  <div class="road" aria-label="棉花到坯布的工站">
+   <div class="stn"><div class="dot"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="7" y="10" width="26" height="22" rx="3" fill="#e9ecf5"/><path d="M7 17h26M7 25h26" stroke="#7f97d8" stroke-width="2"/></svg></div><b>棉包</b><span>原棉、纖維</span></div>
+   <div class="stn"><div class="dot"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="14" cy="22" r="7" fill="#e9ecf5"/><circle cx="25" cy="18" r="8" fill="#fff"/><circle cx="27" cy="27" r="5" fill="#cfd8f2"/></svg></div><b>清花</b><span>開鬆、除雜</span></div>
+   <div class="stn"><div class="dot"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="11" fill="none" stroke="#e9ecf5" stroke-width="3"/><path d="M20 6v5M20 29v5M6 20h5M29 20h5M10 10l3 3M27 27l3 3M10 30l3-3M27 13l3-3" stroke="#e9ecf5" stroke-width="2.4"/></svg></div><b>梳棉</b><span>梳成棉條</span></div>
+   <div class="stn"><div class="dot"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 14h28M6 20h28M6 26h28" stroke="#e9ecf5" stroke-width="3"/><path d="M28 10l6 10-6 10" stroke="#e86a74" stroke-width="2.4" fill="none"/></svg></div><b>併條</b><span>多條併成均勻</span></div>
+   <div class="stn"><div class="dot"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="10" fill="#e9ecf5"/><circle cx="20" cy="20" r="4" fill="#2d4386"/><path d="M20 30v7" stroke="#e86a74" stroke-width="2"/></svg></div><b>轉杯紡</b><span>加撚成紗</span></div>
+   <div class="stn"><div class="dot"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M13 32 17 8h6l4 24z" fill="#e9ecf5"/><path d="M15 22h10M16 16h8M14 27h12" stroke="#9fb3e8" stroke-width="1.6"/></svg></div><b>筒紗</b><span>出口或自用</span></div>
+   <div class="stn"><div class="dot"><svg viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="20" cy="14" rx="12" ry="5" fill="#e9ecf5"/><path d="M8 14v12q12 8 24 0V14" fill="#9fb3e8"/></svg></div><b>圓編</b><span>針織成筒狀布</span></div>
+   <div class="stn"><div class="dot"><svg viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="12" cy="20" rx="5" ry="10" fill="#cfd8f2"/><rect x="12" y="10" width="18" height="20" fill="#e9ecf5"/><ellipse cx="30" cy="20" rx="5" ry="10" fill="#fff"/></svg></div><b>坯布</b><span>再去染整</span></div>
+  </div>
+  <div class="meta">資料整理至 2026 年 11 月 25 日。標「示意」的數字是舉例；標「待確認」的要到現場問。</div>
+ </div>
+</header>
+
+<nav aria-label="章節"><div class="scroll">
+ <a href="#role">你的角色</a><a href="#me">你的背景</a><a href="#factory">這間工廠</a><a href="#spin">紡紗</a><a href="#knit">針織</a><a href="#chain">材料與產業鏈</a><a href="#terms">數字與術語</a><a href="#gemba">現場怎麼看</a><a href="#vendors">機器與廠商</a><a href="#check">報告查證</a><a href="#pocket">口袋小抄</a><a href="#trip">當地實務</a>
+</div></nav>
+
+<main>
+<div class="band" style="padding-bottom:0"><div class="wrap">
+ <div class="note">每節先讀上面就夠用；想多了解，再點開「深入」。</div>
+ <div class="tools"><button id="toggleAll" type="button" aria-pressed="false">全部展開「深入」</button></div>
+</div></div>
+
+<section id="role" class="band"><div class="wrap">
+ <h2>一、先把角色想清楚</h2>
+ <p class="lead">邀請函寫的來訪目的是：看工廠，幫忙讓機器升級、提高產量。邀請人是總經理 Huang Chuanxiang，他會安排住在廠區。</p>
+ <p>最穩的定位是<b>「來看、來學、提供觀察和建議的台灣朋友」</b>，不是代表設備商來賣機器的業務。這個定位講起來最真實，被問也答得出來。</p>
+ <div class="say">
+  <div class="yes"><b>可以說</b>「我想先看看你們現在的機器和流程，回台灣後幫你們問問看台灣的設備和做法。」</div>
+  <div class="yes"><b>可以說</b>「這部分我不是專家，我記下來，回去請懂的人看。」</div>
+  <div class="no"><b>避免</b>報價、保證效果（例如「效率一定能提高到 93%」），或說自己代表某家公司。</div>
+ </div>
+ <details class="deep"><summary>深入：跟先生那份報告怎麼搭配</summary>
+  <ul>
+   <li>報告很完整，適合出發前讀、回台灣後找廠商時參考。</li>
+   <li>這頁補的是報告預設讀者已經懂的基礎（紗支、轉杯紡、針距），還有現場用的清單。</li>
+   <li>報告裡沒查證的內容，請看「報告查證」那一節，不要在當地當事實講。</li>
+   <li>報告的口吻偏業務推銷（「談判武器」、「話術」），到現場建議改成提問和觀察的語氣。</li>
+  </ul>
+ </details>
+</div></section>
+
+<section id="me" class="band"><div class="wrap">
+ <h2>二、你的背景能派上什麼用場</h2>
+ <p class="lead">你不是紡織本科，但工業工程看的正是這間廠最需要的東西：流程、搬運、產能、品質。這是你最真實、也最有說服力的定位。</p>
+ <h3>你帶得去的經驗</h3>
+ <ul>
+  <li><b>中原大學 工業與系統工程學系</b>；做過<b>生管</b>（生產排程、產能）和<b>品管</b>。</li>
+  <li><b>工業工程實務課</b>：到不同工廠實地學習。其中 2015 年參訪中壢的<b>光隆實業</b>（羽絨與羽絨成衣大廠）：看過倉儲區、羽絨重力分層機、品保室，也聽過羽絨分級、品管流程（客訴 → 追蹤改善 → 審核 → 執行 → 結案）。</li>
+  <li><b>設施規劃期末專案（2016，擔任組長）</b>：替旭大實業（手機殼射出成型）做廠內布置改善。
+   <ul>
+    <li>先畫<b>流程程序圖</b>（操作、搬運、檢驗、延遲、儲存），做 <b>PQ 分析</b>。</li>
+    <li>用 <b>SLP 系統化布置規劃</b>：從至圖 → 流量關聯圖 → 作業關聯圖（A、E、I、O、U 分級）→ 空間關聯線圖 → 區塊布置方案。</li>
+    <li>用 <b>Spiral、Blocplan、Graph-based method</b> 產生布置方案，再用 <b>Proplanner</b> 模擬物料和搬運流程。</li>
+    <li>結果：總搬運距離減少約 13%、總搬運時間減少約 23%；總時間和成本只減少不到 1%，所以報告也誠實估算了三年累積效益。</li>
+   </ul>
+  </li>
+ </ul>
+ <div class="note">自我介紹可以這樣說：「我大學讀工業工程，做過生管和品管，學過工廠布置和流程改善。紡紗我是外行，所以想先看你們的流程，看看哪裡可以改善。」這句話全部是真的，對方也聽得懂你能幫什麼。</div>
+
+ <h3>把學過的方法用在紗廠</h3>
+ <table class="stack">
+  <thead><tr><th>你學過的</th><th>在這間廠怎麼用</th></tr></thead>
+  <tbody id="ietable"></tbody>
+ </table>
+ <details class="deep"><summary>深入：從旭大專案學到、這次也用得上的提醒</summary>
+  <ul>
+   <li><b>先量化再建議</b>：當年是先拿到工廠的生產時間、搬運距離等數據，才跑軟體。這次也一樣，先記錄數字（走幾步、搬幾次、停機幾次），回來再分析。</li>
+   <li><b>改善幅度要說實話</b>：旭大專案搬運時間少了 23%，但總成本只少不到 1%。跟老闆說建議時，也要分清楚「局部改善」和「整廠效益」。</li>
+   <li><b>紗廠的特殊點</b>：機台又大又重、地基和風管固定，布置很難大改；比較可行的是改善搬運（棉條桶、筒子紗）、在製品堆放、動線和 5S，而不是搬機器。</li>
+   <li><b>羽絨經驗也用得上</b>：光隆的重力分層「按輕重分級」，和紗廠的清花除雜、紗的分級，都是「依品質分流」的概念，可以當聊天的例子。</li>
+  </ul>
+ </details>
+</div></section>
+
+<section id="factory" class="band"><div class="wrap">
+ <h2>三、這間工廠和這個地方</h2>
+ <h3>查得到的事</h3>
+ <ul>
+  <li>孟加拉出口促進局（EPB）的出口商名錄有登記這家公司：<b>Fujian Onan Textile Co BD Ltd</b>，品項是<b>棉紗</b>，地址 South Shilmandi, Narsingdi，跟邀請函一致。</li>
+  <li><b>納爾辛迪</b>在達卡東北方約 50–57 公里，走達卡－錫爾赫特公路，路況好時一個半小時內可到。這裡是孟加拉老牌的紡織重鎮，紗廠、織布廠、染廠很多，Madhabdi 的 Baburhat 是全國最大的布料市集。</li>
+ </ul>
+ <h3>報告說、但要到現場確認的事</h3>
+ <ul>
+  <li>中資（福建背景）、做轉杯紡棉紗和針織坯布，大部分紗運回中國。<span class="tag t-part">待確認</span></li>
+  <li>約 2,000 頭轉杯、2025 年進口 2 台梳棉機。<span class="tag t-part">待確認</span></li>
+  <li>有沒有自己的圓編機和染整？報告推測「沒有染整」。<span class="tag t-part">待確認</span></li>
+ </ul>
+ <details class="deep"><summary>深入：孟加拉紗廠這幾年在煩惱什麼</summary>
+  <ul>
+   <li>孟加拉紡織廠公會（BTMA）有 1,888 家會員廠，其中紗廠 530 家、織布廠 1,012 家、染整廠 346 家。</li>
+   <li>本地紗廠最近一直抗議：政府讓成衣廠能用保稅方式免稅進口 10–30 支棉紗，加上印度低價紗傾銷，壓到本地紗廠。<b>10–30 支剛好是轉杯紡最常做的範圍</b>，所以這間廠很可能也受影響，可以當成聊天的切入點。</li>
+   <li>成衣業整體：2025/26 年度成衣出口 387 億美元，佔全國出口八成以上；2026 年 11 月工人正在爭取調高最低工資。</li>
+  </ul>
+ </details>
+</div></section>
+
+<section id="spin" class="band"><div class="wrap">
+ <h2>四、紡紗：棉花怎麼變成紗</h2>
+ <p class="lead">紡紗就是把一團亂的短纖維，梳順、拉細、扭在一起。這間廠用的是轉杯紡，速度快、做粗一點的紗。</p>
+ <ol class="steps">
+  <li><b>開清棉（清花）</b> <span class="en">Blowroom</span><br>把壓緊的棉包打鬆，去掉棉籽殼、灰塵、雜物。<span class="see">灰塵和飛花多不多；有沒有人在手挑異物（塑膠絲、頭髮）。</span></li>
+  <li><b>梳棉</b> <span class="en">Carding</span><br>用布滿細針的大滾筒把纖維梳成一根一根，再收成一條粗棉條，放進圓桶。被叫作紡紗廠的「心臟」。<span class="see">機器是哪國、哪年的；棉網薄不薄、勻不勻；地上棉條桶多不多。</span></li>
+  <li><b>併條</b> <span class="en">Drawing</span><br>把 6–8 條棉條併在一起再拉細，讓粗細更均勻。<span class="see">有沒有自動調勻裝置（Autoleveller）。</span></li>
+  <li><b>轉杯紡</b> <span class="en">Rotor / Open-End Spinning</span><br>棉條餵進高速旋轉的小杯子，纖維在杯裡被扭成紗，直接捲成筒子紗。<span class="see">一排排機台上的紅燈＝斷頭；數一數多少錠停著。</span></li>
+  <li><b>包裝</b> <span class="en">Packing</span><br>筒子紗秤重、裝袋或裝箱，以公斤計價出貨。<span class="see">紗管顏色（常用來分支數）、標籤寫什麼。</span></li>
+ </ol>
+ <details class="deep"><summary>深入：轉杯紡 vs 環錠紡、溫濕度為什麼重要</summary>
+  <table class="stack">
+   <thead><tr><th>比較</th><th>轉杯紡（這間廠）</th><th>環錠紡</th></tr></thead>
+   <tbody>
+    <tr><td>速度</td><td>快很多</td><td>較慢</td></tr>
+    <tr><td>工序</td><td>短：併條後直接紡</td><td>多了粗紗、絡筒</td></tr>
+    <tr><td>適合紗支</td><td>中粗支，約 Ne 6–30</td><td>細支也行，Ne 30 以上很常見</td></tr>
+    <tr><td>手感</td><td>較粗、蓬鬆、耐磨</td><td>較柔軟、光滑、強力高</td></tr>
+    <tr><td>常見用途</td><td>牛仔布、毛巾、厚衛衣布、工作服</td><td>T 恤、襯衫、內衣等高品質布</td></tr>
+   </tbody>
+  </table>
+  <h3>溫濕度</h3>
+  <p>棉纖維太乾會起靜電、飛花多、容易斷頭；太濕會黏。紡紗車間通常要控制相對濕度（RH），約在 50–65% 之間（示意，各工序不同）。孟加拉夏天濕熱、冬天乾，看他們有沒有加濕或空調系統，是很實際的觀察點。</p>
+  <h3>電力</h3>
+  <p>孟加拉停電和電壓不穩很常見，紗廠一停電就整排斷頭。看他們有沒有發電機、穩壓器，是另一個好話題。</p>
+ </details>
+</div></section>
+
+<section id="knit" class="band"><div class="wrap">
+ <h2>五、針織：紗怎麼變成布</h2>
+ <p class="lead">針織布廠的主角是圓編機：一個大圓筒，上面插滿上千根針，一邊轉一邊把紗勾成圈圈，織出筒狀的布。</p>
+ <ul>
+  <li><b>單面布（Single Jersey）</b>：最常見的 T 恤布，正反面不一樣。</li>
+  <li><b>雙面布（Rib／Interlock）</b>：兩面一樣、較厚有彈性，常見於領口、羅紋、內衣。</li>
+  <li><b>衛衣布（Fleece／Terry）</b>：背面有毛圈或刷毛，用粗一點的紗，<b>剛好適合轉杯紗</b>。</li>
+ </ul>
+ <h3>看一台圓編機的三個數字</h3>
+ <ul>
+  <li><b>機筒直徑</b>（吋）：例如 30 吋、34 吋，越大織出的布越寬。</li>
+  <li><b>針距 Gauge（G）</b>：每吋幾根針。數字越大越細密，例如 18G 偏粗、28G 偏細。</li>
+  <li><b>喂紗口數（Feeders）</b>：同時有幾個口在餵紗，越多產量越高。</li>
+ </ul>
+ <p>這三個數字和品牌、年份，通常就寫在機台的銘牌上，可以拍下來（先問）。</p>
+ <h3>坯布常見瑕疵</h3>
+ <ul>
+  <li><b>橫條（Barre）</b>：橫向一條深淺不一，常因紗不均或張力不均。</li>
+  <li><b>針路（Needle line）</b>：直向一條線，通常是某根針壞了。</li>
+  <li><b>油污、破洞、漏針</b>：保養或操作問題。</li>
+ </ul>
+ <details class="deep"><summary>深入：圓編機品牌、保養、染整</summary>
+  <ul>
+   <li><b>全球前三大圓編機廠</b>：台灣佰龍（Pai Lung，新北瑞芳）、德國 Mayer、日本福原（Fukuhara）。中國品牌在孟加拉也很多，價格較低。</li>
+   <li><b>保養重點</b>：每班吹乾淨針槽和沉降片上的飛花；用專用針織機油（油太多會在布上留油污）；定期換針。看機台乾不乾淨，就大概知道管理好不好。</li>
+   <li><b>染整</b>：坯布要再經過前處理、染色、定型才是成品布。這是最耗水、耗電、最容易出品質問題的一段。如果這間廠沒有染整，就問布是送去哪裡染、或直接賣坯布。</li>
+   <li><b>台灣染整自動化</b>：例如流亞科技（桃園觀音），做染料助劑自動計量和染色控制系統。2026 年 5 月觀音新廠落成，也表示要往孟加拉等地發展。</li>
+  </ul>
+ </details>
+</div></section>
+
+<section id="chain" class="band"><div class="wrap">
+ <h2>六、成衣材料怎麼做出來，以及棉的產業鏈</h2>
+ <p class="lead">衣服的材料分兩大類：天然纖維（棉、麻、羊毛、蠶絲、羽絨）和人造纖維（再生纖維、合成纖維）。除了羽絨，最後都要經過「紡紗 → 織布 → 染整 → 成衣」。</p>
+ <h3>各類材料的製程</h3>
+ <table class="stack mt">
+  <thead><tr><th>材料</th><th>主要步驟</th><th>特性</th></tr></thead>
+  <tbody id="mtable"></tbody>
+ </table>
+ <details class="deep"><summary>深入：棉的完整步驟（從田裡到衣服）</summary>
+  <ol class="steps">
+   <li><b>種植與採收</b><br>棉花長在棉株上，棉鈴裂開後採收「籽棉」（纖維還連著棉籽）。</li>
+   <li><b>軋棉</b> <span class="en">Ginning</span><br>在產地把纖維和棉籽分開，得到「皮棉」，壓成約 200 多公斤的棉包出口。</li>
+   <li><b>分級與貿易</b><br>依纖維長度、強度、細度（馬克隆值）、顏色分級，賣給全球紗廠。</li>
+   <li><b>紡紗</b><br>清花 → 梳棉 → 併條 →（精梳）→ 轉杯紡或環錠紡，做成棉紗。</li>
+   <li><b>織布或針織</b><br>梭織做襯衫、牛仔布；針織做 T 恤、衛衣。</li>
+   <li><b>染整</b><br>退漿、精練、漂白 → 染色或印花 → 柔軟、預縮、定型。</li>
+   <li><b>成衣</b><br>裁剪 → 縫製 → 整燙 → 品檢 → 包裝出貨。</li>
+  </ol>
+ </details>
+
+ <h3>棉製品產業鏈：台灣</h3>
+ <p>台灣不種棉花，原棉全部進口；近年不少紗廠、染廠關閉或移到越南等地，很多公司是在海外工廠生產。</p>
+ <div class="chain" id="twChain"></div>
+ <h3>棉製品產業鏈：孟加拉</h3>
+ <p>孟加拉是全球最大的棉花進口國之一，約 98% 的棉花靠進口，主要來自巴西、印度、西非和美國；紡紗以後幾乎每一段都有大型集團在做。</p>
+ <div class="chain" id="bdChain"></div>
+ <p class="src">圖中只列查得到公開資料的代表廠商，線的長度表示該公司（或集團）做到哪幾段，不代表全部產品。台灣部分參考了你提供的產業鏈圖與公開報導。</p>
+ <details class="deep"><summary>深入：圖上各家公司的補充說明</summary>
+  <ul>
+   <li><b>遠東新</b>：從上游人纖、紡紗，到織布、染整、成衣都有，台灣少數一條龍的公司。</li>
+   <li><b>台元紡織</b>：以棉系紡紗為主，也開發純棉彈性布、牛仔布等梭織布。</li>
+   <li><b>年興</b>：曾是全球大型牛仔布一貫化廠，台灣後龍廠已在 2023 年底關閉，生產在海外。</li>
+   <li><b>世堡紡織</b>：桃園的中小型針織布廠，代表台灣「每家專精一段」的中小企業。</li>
+   <li><b>Beximco</b>：曾是南亞最大的一貫化紡織成衣集團，2025 年 2 月因財務危機全面停工；2025 年底宣布由日孟合資的 REVIVAL 承租重啟，目前營運狀況要再確認。</li>
+   <li><b>DBL Group</b>：孟加拉最大的垂直整合針織集團之一，有色紡紗、針織、染整、成衣。</li>
+   <li><b>Envoy</b>：牛仔布大廠，自己紡紗、織布、染整，集團也做成衣。</li>
+   <li><b>Square Textiles</b>：大型紗廠；<b>Ha-Meem</b>：布料、針織和成衣；<b>Esquire Knit Composite</b>：針織、染整、成衣一體的針織廠。</li>
+  </ul>
+ </details>
+</div></section>
+
+<section id="terms" class="band"><div class="wrap">
+ <h2>七、必懂的數字與術語</h2>
+ <p class="lead">紗廠和布廠講的是數字。下面這些聽得懂，現場就跟得上。</p>
+ <div class="calc">
+  <b>紗支 Ne 怎麼看：</b>1 磅棉紗能拉出幾個 840 碼長。<b>數字越大，紗越細</b>。<br>
+  例：<code>Ne 10</code> 很粗，做牛仔布、厚衛衣；<code>Ne 20</code> 中等；<code>Ne 30</code> 常見 T 恤紗。
+ </div>
+ <div class="calc">
+  <b>稼動率（效率）小算術（示意）：</b>一台轉杯紡 240 錠，你數到 24 錠停著。<br>
+  運轉中的比例 = <code>(240 − 24) ÷ 240 = 90%</code>。只是一個瞬間，最好不同時段各數一次。
+ </div>
+ <input type="search" id="q" placeholder="搜尋，例如 CV、Gauge、坯布" aria-label="搜尋術語">
+ <div id="tbox"></div>
+</div></section>
+
+<section id="gemba" class="band"><div class="wrap">
+ <h2>八、現場怎麼看：走一圈的清單</h2>
+ <p class="lead">照原料 → 紡紗 → 針織 → 倉庫 → 動力房的順序走。每區記三件事：看到什麼、問了什麼、拍了什麼（先問可不可以拍）。</p>
+ <table class="stack">
+  <thead><tr><th>區域</th><th>看什麼</th><th>問什麼</th></tr></thead>
+  <tbody id="gtable"></tbody>
+ </table>
+ <details class="deep"><summary>深入：最後跟老闆坐下來談什麼</summary>
+  <ul>
+   <li>他最想解決的是什麼？產量、品質、斷頭、缺工，還是想做更高價的紗或布？</li>
+   <li>他未來一兩年想擴大哪一段：紡紗、針織，還是往染整或成衣走？</li>
+   <li>預算大概的範圍、偏好哪國設備、最在意售後服務還是價格？</li>
+   <li>你可以回答：「我回台灣後整理一份觀察，再幫你問問看台灣廠商。」不要當場給價格或承諾。</li>
+  </ul>
+ </details>
+</div></section>
+
+<section id="vendors" class="band"><div class="wrap">
+ <h2>九、機器與廠商地圖</h2>
+ <p class="lead">一句話：<b>紡紗機台灣幾乎不做</b>，主要是歐洲、日本、印度、中國的品牌；<b>針織、驗布、染整自動化是台灣的強項</b>。回台灣能幫上最多忙的，是針織以後的段落。</p>
+ <h3>紡紗段</h3>
+ <table class="stack">
+  <thead><tr><th>工序</th><th>機器</th><th>國際主要廠商</th><th>台灣</th></tr></thead>
+  <tbody id="vspin"></tbody>
+ </table>
+ <h3>針織段（以及往下延伸）</h3>
+ <table class="stack">
+  <thead><tr><th>工序</th><th>機器</th><th>國際主要廠商</th><th>台灣</th></tr></thead>
+  <tbody id="vknit"></tbody>
+ </table>
+ <p class="src">廠商名單只列查得到公開資料的公司，不代表全部。中文名稱不確定的就只寫英文。</p>
+ <h3>回台灣之後怎麼做</h3>
+ <ol class="steps">
+  <li><b>整理一份觀察清單</b><br>每台機器的品牌、型號、年份、台數，加上照片和工廠講的痛點。廠商一看就知道能不能幫。</li>
+  <li><b>先跟工廠確認</b><br>把清單給總經理看，問他最想先改善哪一段、預算大概多少，再去找廠商，避免白跑。</li>
+  <li><b>聯絡台灣廠商</b><br>直接透過官網或電話找業務，說明是孟加拉納爾辛迪的紗廠和針織廠，請他們介紹在孟加拉的代理商。</li>
+  <li><b>報價直接給工廠</b><br>請廠商或當地代理直接跟工廠報價、談付款和交機。你負責牽線，不經手金錢，也不代簽合約。</li>
+  <li><b>安排看實機</b><br>請廠商介紹孟加拉或附近國家的使用工廠，或到展覽看機器。</li>
+ </ol>
+ <h3>可以找的單位</h3>
+ <ul>
+  <li><b>紡拓會（TTF）</b>：台灣紡織業的推廣單位，可以問台孟合作和廠商資源。</li>
+  <li><b>外貿協會（TAITRA）</b>：在國際紡織機械展組台灣館，2025 年就帶了 6 家台灣紡織機械廠參加 ITMA Asia。</li>
+  <li><b>紡織產業綜合研究所（紡織所）</b>：技術諮詢、檢測。</li>
+  <li><b>孟加拉當地的機械展</b>：BTKG 2027 預定 2027 年 1 月 28–31 日在達卡 ICCB 舉行，紡紗、針織、染整機器都會展出，是一次看很多廠商的好機會。主辦單位展昭國際就在台北內湖，台灣廠商常透過它參展。（原訂 2026 年 2 月的 DTG 已取消；日期以主辦單位公告為準。）</li>
+ </ul>
+ <details class="deep"><summary>深入：為什麼台灣在針織特別有競爭力</summary>
+  <ul>
+   <li>佰龍與德國 Mayer、日本 Fukuhara 並列全球前三大圓編機廠，在 32 個國家有經銷通路。</li>
+   <li>台灣圓編機業者自己的說法是：品質跟日本、德國並列世界前三，價格比日本便宜兩到三成；中國機器較便宜，但性能和價格比還有差距。這是業者說法，實際要比較報價和售後服務。</li>
+   <li>台灣也在做「機器上的 AI」：佰龍有織布時即時抓瑕疵的系統，OSHIMA 有 AI 驗布機，流亞做染整自動配料。這類「不換主機、加裝升級」的方案，對預算有限的工廠比較好入門。</li>
+  </ul>
+ </details>
+</div></section>
+
+<section id="check" class="band"><div class="wrap">
+ <h2>十、報告查證表</h2>
+ <p class="lead">針對先生那份 18 頁報告裡比較具體的說法。<span class="tag t-ok">已查證</span> <span class="tag t-part">待確認</span> <span class="tag t-no">查不到</span> <span class="tag t-bad">有誤</span></p>
+ <table class="stack">
+  <thead><tr><th>報告的說法</th><th>狀態</th><th>說明</th></tr></thead>
+  <tbody id="ctable"></tbody>
+ </table>
+ <p class="src">「查不到」不代表是錯的，只是公開資料找不到來源，在當地不要當成事實引用。</p>
+</div></section>
+
+<section id="pocket" class="band pocket"><div class="wrap">
+ <h2>口袋小抄</h2>
+ <p class="lead">到現場只看這一節也行。</p>
+ <div class="pc">
+  <div><h3>十個一定要懂的詞</h3><ul>
+   <li>Ne 紗支：越大越細</li><li>Rotor 轉杯紡</li><li>Carding 梳棉</li><li>Sliver 棉條</li><li>Breakage 斷頭</li>
+   <li>CV% 不勻率：越低越好</li><li>Neps 棉結</li><li>Gauge 針距</li><li>GSM 克重</li><li>Greige 坯布</li></ul></div>
+  <div><h3>八個好問題</h3><ol>
+   <li>現在主要紡哪幾種紗支？</li><li>一天大概出多少公斤？</li><li>機器是哪國、哪年的？</li><li>最常停機的原因是什麼？</li>
+   <li>停電怎麼辦？</li><li>布或紗主要賣到哪裡？</li><li>最想改善哪一段？</li><li>保養和備品怎麼處理？</li></ol></div>
+  <div><h3>每區要記下</h3><ul>
+   <li>機器品牌、型號、年份、台數</li><li>停機或斷頭的大概比例</li><li>溫濕度計讀數（如果有）</li><li>人力：一個人顧幾台</li><li>對方說的痛點，原話記下</li></ul></div>
+  <div><h3>幾句孟加拉語</h3><ul>
+   <li>你好：Assalamu alaikum</li><li>謝謝：Dhonnobad</li><li>你好嗎：Kemon achhen?</li><li>很好：Bhalo</li><li>工廠：Karkhana</li></ul></div>
+ </div>
+</div></section>
+
+<section id="trip" class="band"><div class="wrap">
+ <h2>十一、當地實務</h2>
+ <h3>帶什麼</h3>
+ <ul>
+  <li><b>布鏡（數紗放大鏡）</b>：看布面和紗很好用，台灣布行或網路上很便宜。</li>
+  <li>口罩、耳塞：紡紗車間飛花多、很吵。</li>
+  <li>捲尺、小筆記本、行動電源；英文名片。</li>
+  <li>把這頁和報告存在手機上，離線也能看。</li>
+ </ul>
+ <h3>安全與禮儀</h3>
+ <ul>
+  <li><b>2026 年 11 月有工資抗議</b>，集中在達卡、加濟布爾、納拉揚甘傑一帶，曾有衝突。出發前和到當地後看新聞，避開抗議現場；交通安排聽邀請方的。</li>
+  <li>孟加拉以穆斯林為主：遞東西、吃東西用右手；穿長褲、有袖上衣。</li>
+  <li>主人招待奶茶（cha）接受就好；週五是主要休息日。</li>
+  <li>工廠裡拍照先問；機台銘牌和數字用手抄也可以。</li>
+  <li>管理層是福建背景，可以用中文溝通；但現場工人和孟加拉主管多半講孟加拉語、英文，問問題時盡量讓他們也參與。</li>
+ </ul>
+ <details class="deep"><summary>深入：出發前在台灣可以做的事</summary>
+  <ul>
+   <li>到布行或五分埔摸幾種布：純棉汗布、厚衛衣布、天絲／莫代爾混紡。手摸過，在現場比較容易對照。這件事有幫助，但不是必要。</li>
+   <li>上佰龍（Pai Lung）、流亞科技的官網看看產品照片，認得機器長怎樣。</li>
+   <li>跟邀請方確認：待幾天、要看哪幾個車間、需不需要準備什麼。</li>
+  </ul>
+ </details>
+</div></section>
+</main>
+
+<footer class="band"><div class="wrap">
+ <p>資料來源：孟加拉出口促進局出口商名錄、BTMA 官網、The Daily Star、UNB、Wikipedia／Banglapedia（納爾辛迪）、Taiwan Excellence 與工商時報（佰龍、流亞科技）、孟加拉出口相關報導。出口和工資數字以 2026 年 11 月前的報導為準。</p>
+</div></footer>
+
+<script>
+{
+const terms=[
+ ["紡紗",[
+  ["Ne（English count）","紗支","數字越大紗越細。轉杯紡多在 Ne 6–30。"],
+  ["Rotor / Open-End","轉杯紡（氣流紡）","速度快、做中粗支紗的紡紗法。"],
+  ["Ring spinning","環錠紡","傳統紡法，紗較柔、可紡細支。"],
+  ["Blowroom","清花","開鬆棉包、除雜的第一段。"],
+  ["Carding","梳棉","把纖維梳順成棉條，紡紗廠的心臟。"],
+  ["Sliver","棉條","梳棉、併條後那條粗粗的棉。"],
+  ["Drawing / Draw frame","併條","多條棉條併合拉細，提高均勻度。"],
+  ["Autoleveller","自調勻整裝置","自動修正棉條粗細的裝置。"],
+  ["End breakage","斷頭","紡紗時紗斷掉，越少越好。"],
+  ["TPI / Twist","撚度","每吋扭幾圈，影響強力和手感。"],
+  ["Cone","筒子紗","捲在錐形紗管上的紗，出貨單位。"],
+  ["Carded / Combed","普梳／精梳","精梳多一道去短纖，紗更好、更貴。"]]],
+ ["品質數字",[
+  ["CV%","不勻率","紗粗細的變異，越低越均勻。"],
+  ["Neps","棉結","紗上的小顆粒，越少越好。"],
+  ["IPI","細節、粗節、棉結數","Thin/Thick/Neps，每千米幾個，用來評紗。"],
+  ["Strength / CSP","強力","紗能承受多大的拉力。"],
+  ["Hairiness","毛羽","紗表面翹起的纖維。"],
+  ["RH%","相對濕度","車間要控制，太乾飛花多、斷頭多。"],
+  ["Efficiency","稼動率／效率","機器實際在生產的時間比例。"]]],
+ ["針織與布",[
+  ["Circular knitting","圓編","用圓筒形針織機織布。"],
+  ["Gauge（G）","針距","每吋幾根針，越大越細密。"],
+  ["Diameter","機筒直徑","單位是吋，決定布寬。"],
+  ["Feeder","喂紗口","同時餵紗的口數，越多產量越高。"],
+  ["Single Jersey","單面汗布","最常見的 T 恤布。"],
+  ["Rib / Interlock","羅紋／雙面布","兩面一樣、彈性好。"],
+  ["Fleece / Terry","刷毛布／毛圈布","衛衣布，適合粗一點的轉杯紗。"],
+  ["Greige fabric","坯布","還沒染整的布。"],
+  ["GSM","克重","每平方公尺幾公克，越大越厚。"],
+  ["Barre","橫條","布面橫向深淺不均。"],
+  ["Needle line","針路","直向線條瑕疵，多半是針壞了。"],
+  ["Sinker","沉降片","圓編機上配合針成圈的零件。"]]],
+ ["染整與生意",[
+  ["Dyeing / Finishing","染色／後整理","坯布變成品布的工序。"],
+  ["Stenter","定型機","控制布寬、克重、縮水率的大機器。"],
+  ["Shrinkage","縮水率","洗後尺寸變小的比例。"],
+  ["Lyocell / Modal / Viscose","天絲／莫代爾／黏膠","木漿做的再生纖維，常跟棉混紡。"],
+  ["Melange","色紡紗","用不同顏色纖維混紡，做出麻灰效果。"],
+  ["Bonded warehouse","保稅","進口原料免稅、做成出口品。"],
+  ["Back-to-back L/C","背對背信用狀","孟加拉出口廠買原料常用的付款方式。"],
+  ["Spare parts","備品","針、針布、皮圈等耗材零件。"]]]
+];
+const gemba=[
+ ["原料倉","棉包來源標籤；有沒有混用回收棉或天絲","原料從哪裡來？用哪些纖維？"],
+ ["清花、梳棉","飛花、灰塵；梳棉機品牌和年份；有沒有人手挑異物","異物（塑膠絲）多嗎？梳棉機多久換針布？"],
+ ["併條、轉杯紡","紅燈（斷頭）多不多；停著的錠數；溫濕度計","主要紡哪些紗支？一天多少公斤？最常停機的原因？"],
+ ["針織車間","圓編機台數、品牌、直徑、針距；機台乾淨程度","主要織哪種布？瑕疵多是什麼？針多久換？"],
+ ["布倉、紗倉","坯布表面有沒有橫條、油污、破洞；包裝標籤","布和紗賣到哪裡？客戶最常抱怨什麼？"],
+ ["動力房","發電機、變壓器、穩壓器、空調或加濕設備","停電多常發生？一停電會損失多少？"],
+ ["保養間","備品庫存、保養紀錄表","誰負責保養？零件從哪裡買、要等多久？"]
+];
+const checks=[
+ ["公司存在、在納爾辛迪、出口棉紗","ok","孟加拉出口促進局名錄有登記，地址與邀請函相符。"],
+ ["決策者是 Chen Zhonghu（陳總）","bad","邀請函署名的總經理是 Huang Chuanxiang。以邀請人為主，陳總是誰到現場再了解。"],
+ ["約 2,000 頭轉杯、年產約 230 萬公斤","no","公開資料找不到來源，到現場問。"],
+ ["Volza：55 筆提單、82% 出口到中國","part","另一個海關資料庫只收錄 13 筆，各資料庫數字不同。方向（主要賣中國）可能對，比例別當準確數字。"],
+ ["2025 年 4 月進口 2 台中國梳棉機","no","只能從報告引用的截圖看到，到現場看機台就知道。"],
+ ["佰龍是全球前三大圓編機廠","ok","與德國 Mayer、日本 Fukuhara 並列，總部在新北瑞芳。"],
+ ["福原精機（Fukuhara）是「台灣體系」","bad","福原是日本品牌。"],
+ ["流亞科技在桃園觀音","ok","2026 年 5 月觀音新廠落成，做染整自動化。"],
+ ["東陽染整機械、力根實業、全宇工業、皇冠機械等","no","這次沒有查到，聯絡前先自己確認公司名稱和網站。"],
+ ["各類「台灣指標使用工廠」（遠東新、儒鴻等用哪台機器）","no","沒有公開來源，很可能是推測。不要對外講。"],
+ ["設備價格區間（例如圓編機 2.8–4.8 萬美元）","no","沒有來源。真要報價要問廠商，不要當場講數字。"],
+ ["效益數字（稼動率 82% → 93%、省水 40% 等）","part","是推估，不是這間廠的實測。可以說「可能改善」，不要說「保證」。"],
+ ["孟加拉約 400 萬成衣工人、成衣佔出口八成以上","ok","與 2026 年多家新聞報導一致。"],
+ ["GFUN 機能生活館可以觀摩","part","生活館存在；但個人參觀可能受人數限制，要先打電話問。"]
+];
+const vspin=[
+ ["清花","抓棉機、開棉機、混棉機、異纖清除機","Trützschler（德）、Rieter（瑞士）；異纖清除：Loptex（義）、Jossi（瑞士）；中國品牌","無主要廠商"],
+ ["梳棉","梳棉機、針布（滾筒上的鋼針）","Trützschler（德）、Rieter（瑞士）、Saurer（Autocard）；針布：Graf（瑞士）；中國品牌","無主要廠商"],
+ ["併條","併條機（含自調勻整）","Rieter、Trützschler、印度 LMW、中國品牌","無主要廠商"],
+ ["轉杯紡","轉杯紡紗機","Saurer Schlafhorst（Autocoro，德）、Rieter（R 37／R 70，瑞士）；中國品牌（經緯等）在孟加拉很常見","無主要廠商"],
+ ["品質檢測","紗的均勻度、強力、棉結檢測儀","Uster（瑞士）是業界標準","可找紡織所做檢測"],
+ ["車間環境","空調、加濕、除塵系統","瑞士 Luwa 等紡織空調專業廠","一般工業空調廠，需確認有無紡織經驗"]
+];
+const vknit=[
+ ["織布","圓編機：單面、雙面、衛衣布、電腦提花","Mayer &amp; Cie（德）、Terrot（德）、Fukuhara（日）；中國品牌","佰龍 Pai Lung（新北瑞芳，全球前三）、典洋 Tien Yang、Jiunn Long"],
+ ["零件耗材","織針、沉降片、針筒","Groz-Beckert（德，織針龍頭）","向圓編機原廠買原廠零件"],
+ ["送紗","儲紗器、送紗系統、斷紗偵測","Memminger-IRO（德）、BTSR（義）","通常隨圓編機一起配"],
+ ["驗布","驗布機、AI 瑕疵偵測","中國、義大利多家","OSHIMA（AI 驗布機 EagleAi）；佰龍（機上即時偵測）"],
+ ["鬆布、預縮","針織布鬆布機、蒸汽預縮","多國廠商","OSHIMA"],
+ ["染整（若要擴充）","染色機、自動配料、染色控制","德、義、港、中國廠商","染色機：ACME、Asia Kingdom；自動配料與控制：流亞科技 Logic Art（桃園觀音）"]
+];
+const mats=[
+ ["棉","種植採收 → 軋棉（去籽）→ 打包 → 清花梳棉 → 紡紗 → 織布或針織 → 染整","吸濕透氣、親膚；易皺、會縮水"],
+ ["麻（亞麻、苧麻）","收割 → 浸漬脫膠（讓纖維和莖分開）→ 打麻 → 梳麻 → 紡紗（常用濕紡）→ 織布 → 染整","涼爽、挺、吸濕快乾；很容易皺"],
+ ["羊毛","剪毛 → 分揀 → 洗毛（去油脂）→ 梳毛（精紡多一道精梳）→ 紡紗 → 織布或針織 → 縮絨、整理","保暖、有彈性；要注意縮水、蟲蛀"],
+ ["蠶絲","養蠶結繭 → 煮繭 → 繅絲（抽出長絲）→ 精練去膠 → 織造 → 染整","光澤滑順、輕；怕曬、怕汗，需細心保養"],
+ ["羽絨","屠宰副產品收集 → 分毛（用重力分層機依輕重把羽絨、羽毛分成多個等級，越輕越暖）→ 水洗 → 高溫烘乾消毒 → 依絨、毛比例分級（例如 70／30）→ 充填進防絨布","極輕極暖；不能紡紗，要防鑽絨。你在光隆看過分層機"],
+ ["再生纖維（嫘縈、莫代爾、天絲）","木漿溶解 → 濕法紡絲成纖維 → 切成短纖 → 紡紗（可和棉混紡）→ 織布 → 染整","垂墜、涼滑、吸濕好；濕的時候強度較低"],
+ ["合成纖維（聚酯、尼龍、彈性纖維）","石油原料聚合成粒 → 熔融紡絲（長絲）→ 加工絲或切短纖 → 織布 → 高溫染色 → 定型","耐磨、快乾、不易皺；做機能布的主力"]
+];
+const tw=[
+ ["遠東新","人纖到成衣一條龍",1,4],
+ ["台元紡織","棉系紡紗、棉布",1,2],
+ ["年興","牛仔布；台灣廠已關",1,4,1],
+ ["世堡紡織","針織布（中小企業）",2,2],
+ ["儒鴻","機能針織布到成衣",2,4],
+ ["宏遠","機能布",2,4],
+ ["聚陽","成衣",4,4]
+];
+const bd=[
+ ["Fujian Onan","這次拜訪的廠；針織待確認",1,1,0,1],
+ ["Square Textiles","大型紗廠",1,1],
+ ["Envoy","牛仔布；集團也做成衣",1,3],
+ ["DBL Group","色紡紗到針織成衣",1,4],
+ ["Beximco","2025 年停工，重啟中",1,4],
+ ["Ha-Meem","布料到成衣",2,4],
+ ["Esquire Knit Composite","針織、染整、成衣",2,4]
+];
+const ie=[
+ ["流程程序圖","從棉包進廠走到筒紗出貨，記下每一步是操作、搬運、檢驗、等待還是儲存，找出不必要的搬運和等待。"],
+ ["時間研究、碼錶測時","用手機碼錶量：換一桶棉條要多久、接一次斷頭要多久、一個人顧幾錠。"],
+ ["產線平衡","清花、梳棉、併條、轉杯紡的產能要對得上；看哪一段在等料、哪一段堆太多棉條桶，就是瓶頸。"],
+ ["SLP 設施規劃","畫各車間的從至圖和關聯圖：原料倉、清花、梳棉、併條、轉杯、包裝、成品倉之間的距離和搬運量合不合理。"],
+ ["生管","問他們怎麼排紗支和換批、多久換一次品種、交期怎麼算。"],
+ ["品管","看有沒有紗的檢驗（強力、均勻度、棉結）、抽樣方式、不良品怎麼處理、客訴怎麼追。"]
+];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const tagMap={ok:['t-ok','已查證'],part:['t-part','待確認'],no:['t-no','查不到'],bad:['t-bad','有誤']};
+document.getElementById('mtable').innerHTML=mats.map(r=>'<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>').join('');
+const bars=(first)=>'<div class="cb c1">原棉<small>'+first+'</small></div><div class="cb c2">紡紗</div><div class="cb c3">織布<small>／針織</small></div><div class="cb c4">染整</div><div class="cb c5">成衣</div>';
+const chain=(rows,first)=>'<div class="cg">'+bars(first)+rows.map(r=>{const s=r[2]+1,e=r[3]+1,span=e-s+1;const al=span>=3?'':(s<=2?' st':(e>=4?' en':''));return '<div class="cr"><div class="co'+al+(r[5]?' hl':'')+'" style="grid-column:'+s+' / '+(e+1)+'"><b>'+r[0]+'</b><i>（'+r[1]+'）</i><span class="ln"></span></div></div>'}).join('')+bars(first)+'</div>';
+document.getElementById('twChain').innerHTML=chain(tw,'100% 進口');
+document.getElementById('bdChain').innerHTML=chain(bd,'約 98% 進口');
+document.getElementById('ietable').innerHTML=ie.map(r=>'<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td></tr>').join('');
+const row=r=>'<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td></tr>';
+document.getElementById('vspin').innerHTML=vspin.map(row).join('');
+document.getElementById('vknit').innerHTML=vknit.map(row).join('');
+document.getElementById('gtable').innerHTML=gemba.map(r=>'<tr><td><b>'+esc(r[0])+'</b></td><td>'+esc(r[1])+'</td><td>'+esc(r[2])+'</td></tr>').join('');
+document.getElementById('ctable').innerHTML=checks.map(r=>{const t=tagMap[r[1]];return '<tr><td>'+esc(r[0])+'</td><td><span class="tag '+t[0]+'">'+t[1]+'</span></td><td>'+esc(r[2])+'</td></tr>'}).join('');
+const tbox=document.getElementById('tbox');
+const render=q=>{q=q.trim().toLowerCase();let html='';
+ for(const [g,list] of terms){const hit=list.filter(t=>!q||t.join(' ').toLowerCase().includes(q));
+  if(hit.length)html+='<div class="grp">'+esc(g)+'</div><div class="terms">'+hit.map(t=>'<div class="term"><b>'+esc(t[0])+'</b><i>'+esc(t[1])+'</i><p>'+esc(t[2])+'</p></div>').join('')+'</div>';}
+ tbox.innerHTML=html||'<p class="lead" style="margin-top:14px">找不到這個詞，換個關鍵字試試。</p>';};
+render('');
+document.getElementById('q').addEventListener('input',e=>render(e.target.value));
+const btn=document.getElementById('toggleAll');
+btn.addEventListener('click',()=>{
+ const open=btn.getAttribute('aria-pressed')!=='true';
+ document.querySelectorAll('details.deep').forEach(d=>{if(open)d.setAttribute('open','');else d.removeAttribute('open');});
+ btn.setAttribute('aria-pressed',String(open));
+ btn.textContent=open?'全部收起':'全部展開「深入」';
+});
+const lab=()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}};
+lab();
+}
+</script>
+<script>
+if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('../sw.js').catch(()=>{});
+if(navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(()=>{});
+</script>
+<p style="text-align:center;color:#888;font-size:12px;margin:0 0 24px">版本：工廠手冊 v1（離線版，r2）</p>
+</body>
+</html>

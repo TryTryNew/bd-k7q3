@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>校園開展計數</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="開展計數">
+<meta name="theme-color" content="#006a4e">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<style>
+/* VOICE: calm field tool, quick to use while walking on campus
+   IDEA: a hand tally counter — big press-to-add keys, a running clock
+   PICTURE: the live counter grid itself, at the top
+   COLOUR and TYPE: each campus owns a header colour (DU green, NSU blue…); Noto Sans TC + Barlow Condensed numerals
+   LAYOUT: one column, sticky header with campus + clock; records + totals below */
+:root{color-scheme:light dark;
+--bg:light-dark(#f6f8f6,#0c1512);--card:light-dark(#fff,#13201b);--ink:light-dark(#10201a,#e8f1ec);
+--mute:light-dark(#5d6f67,#93a89e);--line:light-dark(#dde6e1,#22352d);
+--cc:#006a4e;--soft:light-dark(#eef3f0,#1a2a24);--r:#e5283c}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,"PingFang TC","Noto Sans TC",system-ui,sans-serif;overflow-x:clip}
+.num{font-family:"Barlow Condensed","PingFang TC",sans-serif;font-variant-numeric:tabular-nums}
+header{background:var(--cc);color:#fff;padding:12px max(4vw,14px) 14px;position:sticky;top:0;z-index:5;transition:background .25s}
+.wrap{max-width:720px;margin:0 auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.top small{font-size:13px;opacity:.85}
+.camps{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 10px}
+.camps button{border:2px solid rgba(255,255,255,.55);background:none;color:#fff;font:800 22px "Noto Sans TC";padding:4px 16px;border-radius:12px;min-height:48px;cursor:pointer}
+.camps button.on{background:#fff;color:var(--cc);border-color:#fff}
+.camps button.add{font-size:16px;font-weight:600;border-style:dashed}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+select,input,textarea{font:inherit;font-size:16px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 10px;min-height:44px}
+.seg{display:flex;background:rgba(255,255,255,.18);border-radius:12px;padding:3px}
+.seg button{flex:1;border:0;background:none;color:#fff;font:600 15px "Noto Sans TC";padding:8px 14px;border-radius:9px;min-height:40px;cursor:pointer}
+.seg button.on{background:#fff;color:var(--cc)}
+.clock{display:flex;align-items:center;gap:10px;margin-left:auto}
+.clock .t{font-size:34px;line-height:1;font-weight:700}
+.btn{border:0;border-radius:12px;font:600 16px "Noto Sans TC";padding:10px 16px;min-height:44px;cursor:pointer}
+.go{background:#fff;color:var(--cc)}.stop{background:var(--r);color:#fff}
+.main{background:var(--cc);color:#fff}
+.ghost{background:var(--soft);color:var(--ink)}
+.danger{background:none;color:var(--r);border:1px solid var(--r)}
+main{padding:16px max(4vw,14px) 40px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.k{background:var(--card);border:1px solid var(--line);border-radius:16px;display:grid;grid-template-columns:40px minmax(0,1fr);overflow:hidden;box-shadow:0 2px 0 var(--line)}
+.k .minus{border:0;border-right:1px solid var(--line);background:var(--soft);color:var(--mute);font-size:26px;cursor:pointer}
+.k .plus{border:0;background:none;color:var(--ink);text-align:left;padding:10px 10px 10px 12px;cursor:pointer;min-height:100px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px}
+.k .plus:active{background:var(--soft)}
+.k .lab{font-size:15px;font-weight:600;display:block}.k .en{font-size:12px;color:var(--mute);display:block}
+.k .v{font-size:42px;line-height:1.05;font-weight:700;display:block}
+.k .pl{width:44px;height:44px;border-radius:50%;background:var(--cc);color:#fff;font-size:30px;line-height:42px;text-align:center;font-weight:600}
+.k.bap .pl{background:var(--r)}
+h2{font-size:18px;margin:28px 0 10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.hrs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.hrs input,.ed input,.ed select{width:100%}
+.note{font-size:13px;color:var(--mute)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+.scroll{overflow-x:auto}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.stat b{display:block;font-size:30px;line-height:1.1}
+.stat span{font-size:13px;color:var(--mute)}
+.rec{padding:10px 0;border-bottom:1px solid var(--line)}
+.rec .head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:start}
+.rec .meta{font-size:13px;color:var(--mute)}
+.tag{display:inline-block;font-size:13px;font-weight:700;padding:1px 10px;border-radius:99px;color:#fff;margin-right:6px}
+.tag.s{background:var(--soft);color:var(--ink);font-weight:400}
+.ed{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px;background:var(--soft);padding:12px;border-radius:12px}
+.ed label{font-size:13px;color:var(--mute)}
+.ed .full{grid-column:1/-1}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}
+.toast.on{opacity:1}
+@media(prefers-reduced-motion:reduce){.toast,header{transition:none}}
+@media(max-width:420px){.clock .t{font-size:28px}}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--r);outline-offset:2px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="top"><b>現在記在 ▼</b><small id="clockNote"></small></div>
+  <div class="camps" id="camps"></div>
+  <div class="row">
+    <div class="seg" role="group" aria-label="類型">
+      <button id="tG" class="on">福音</button><button id="tS">牧養</button>
+    </div>
+    <div class="clock">
+      <span class="t num" id="clock">0:00:00</span>
+      <button class="btn go" id="timer">開始</button>
+    </div>
+  </div>
+</div></header>
+
+<main><div class="wrap">
+  <div class="grid" id="keys"></div>
+
+  <div class="card" style="margin-top:12px">
+    <div class="hrs">
+      <label>福音時數 (hr)<br><input id="hG" type="number" step="0.25" min="0" inputmode="decimal"></label>
+      <label>牧養時數 (hr)<br><input id="hS" type="number" step="0.25" min="0" inputmode="decimal"></label>
+    </div>
+    <p class="note" style="margin:8px 0">按「停止」後，時間會加到上面這兩格（1 小時 = 1，30 分鐘 = 0.5）；也可以直接改數字。<br>上面按的數字會自動暫存，關掉頁面也不會不見；按下方按鈕才會存進「紀錄」和「累計」。</p>
+    <textarea id="memo" rows="2" style="width:100%" placeholder="備註（例如：今天在圖書館前）"></textarea>
+    <div class="row" style="margin-top:10px">
+      <button class="btn main" id="save" style="flex:1"></button>
+      <button class="btn ghost" id="reset">清空重來</button>
+    </div>
+  </div>
+
+  <h2>累計</h2>
+  <div class="row" style="margin-bottom:10px">
+    <select id="fCampus" aria-label="篩選校園"></select>
+    <input id="fFrom" type="date" aria-label="起"><input id="fTo" type="date" aria-label="迄">
+  </div>
+  <div class="card scroll"><table id="tot"></table></div>
+  <div class="stats" id="ratios" style="margin-top:10px"></div>
+
+  <h2>紀錄</h2>
+  <p class="note" style="margin-top:0">記錯學校或數字？按該筆的「修改」就能改，也能在裡面刪除。</p>
+  <div class="row" style="margin-bottom:6px">
+    <button class="btn ghost" id="copy">複製全部（貼到試算表）</button>
+  </div>
+  <p class="note">資料存在這支手機的瀏覽器裡，不會自動上傳。建議每週按一次「複製全部」，貼到 LINE 給自己或貼進試算表備份。</p>
+  <details class="card" style="margin:10px 0;padding:10px 12px"><summary style="min-height:40px;cursor:pointer">從舊版或別支手機搬資料（貼上匯入）</summary>
+   <p class="note">在舊頁面按「複製全部」，貼到下面再按「匯入」。重複的紀錄會自動略過。</p>
+   <textarea id="impTxt" rows="4" style="width:100%" placeholder="日期	校園	接觸…（貼上「複製全部」的內容）"></textarea>
+   <button class="btn main" id="impBtn" style="margin-top:8px;width:100%">匯入</button></details>
+  <p class="note" style="text-align:center">版本：開展計數 v1（離線版，r2）</p>
+  <div id="list"></div>
+</div></main>
+<div class="toast" id="toast"></div>
+
+<script>
+{
+const KEYS=[
+ ['c','接觸','Contacted'],['p','傳講','Preaching'],
+ ['r','讀經','Reading'],['v','探訪','Visiting'],
+ ['col','留聯絡','Collected'],['b','受浸','Baptized']];
+const COLORS=['#006a4e','#1d4f9e','#8a3d97','#b4561a','#0f7c86','#7a5a12'];
+const S='bd-tally-v1';
+const load=()=>{try{return JSON.parse(localStorage.getItem(S))||null}catch(e){return null}};
+const st=load()||{campuses:['DU','NSU'],records:[],cur:null};
+const blank=()=>({campus:st.campuses[0],type:'g',counts:{},hG:0,hS:0,memo:'',runStart:null});
+if(!st.cur)st.cur=blank();
+let editing=null;
+const save=()=>{try{localStorage.setItem(S,JSON.stringify(st))}catch(e){}};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const r2=x=>Math.round(x*100)/100;
+const col=c=>COLORS[Math.max(0,st.campuses.indexOf(c))%COLORS.length];
+const toast=m=>{const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),1800)};
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const curHas=()=>Object.values(st.cur.counts).some(v=>v)||st.cur.hG||st.cur.hS||st.cur.runStart;
+
+function renderCampus(){
+  document.documentElement.style.setProperty('--cc',col(st.cur.campus));
+  $('camps').innerHTML=st.campuses.map(c=>`<button data-c="${esc(c)}" class="${c===st.cur.campus?'on':''}">${esc(c)}</button>`).join('')+
+    '<button class="add" id="addC">＋ 校園</button>';
+  $('save').textContent=`完成這一次，存進紀錄（${st.cur.campus}）`;
+  const f=$('fCampus').value||'全部';
+  $('fCampus').innerHTML=['全部',...st.campuses].map(c=>`<option${c===f?' selected':''}>${esc(c)}</option>`).join('');
+}
+function renderKeys(){
+  $('keys').innerHTML=KEYS.map(([k,l,e])=>`<div class="k${k==='b'?' bap':''}">
+   <button class="minus" data-m="${k}" aria-label="${l}減一">−</button>
+   <button class="plus" data-p="${k}" aria-label="${l}加一"><span><span class="lab">${l}</span><span class="en">${e}</span><span class="v num">${st.cur.counts[k]||0}</span></span><span class="pl">＋</span></button></div>`).join('');
+}
+function renderCur(){
+  $('tG').classList.toggle('on',st.cur.type==='g');$('tS').classList.toggle('on',st.cur.type==='s');
+  $('hG').value=st.cur.hG?r2(st.cur.hG):'';$('hS').value=st.cur.hS?r2(st.cur.hS):'';
+  $('memo').value=st.cur.memo;
+  const run=!!st.cur.runStart;
+  $('timer').textContent=run?'停止':'開始';$('timer').className='btn '+(run?'stop':'go');
+  $('clockNote').textContent=run?`計時中・算進${st.cur.type==='g'?'福音':'牧養'}`:'';
+  tick();
+}
+function tick(){
+  const ms=st.cur.runStart?Date.now()-st.cur.runStart:0,s=Math.floor(ms/1000);
+  $('clock').textContent=`${Math.floor(s/3600)}:${String(Math.floor(s/60)%60).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+}
+setInterval(tick,1000);
+function stopTimer(){
+  if(!st.cur.runStart)return;
+  const min=Math.max(1,Math.round((Date.now()-st.cur.runStart)/60000));
+  const f=st.cur.type==='g'?'hG':'hS';
+  st.cur[f]=r2((st.cur[f]||0)+min/60);
+  st.cur.runStart=null;
+  toast(`加了 ${min} 分鐘到「${f==='hG'?'福音':'牧養'}時數」`);
+  setTimeout(()=>{const i=$(f);i.scrollIntoView({block:'center',behavior:'smooth'});i.style.outline='3px solid var(--cc)';setTimeout(()=>i.style.outline='',1500)},50);
+}
+function filtered(){
+  const c=$('fCampus').value,a=$('fFrom').value,b=$('fTo').value;
+  return st.records.filter(x=>(c==='全部'||!c||x.campus===c)&&(!a||x.date>=a)&&(!b||x.date<=b));
+}
+function renderTotals(){
+  const rs=filtered(),sum=k=>rs.reduce((t,x)=>t+(x.counts[k]||0),0);
+  const hG=rs.reduce((t,x)=>t+(+x.hG||0),0),hS=rs.reduce((t,x)=>t+(+x.hS||0),0);
+  $('tot').innerHTML='<tr><th>項目</th><th>累計</th></tr>'+
+    KEYS.map(([k,l,e])=>`<tr><td>${l} <span class="note">${e}</span></td><td class="num">${sum(k)}</td></tr>`).join('')+
+    `<tr><td>福音時數 <span class="note">Gospel hr</span></td><td class="num">${r2(hG)}</td></tr>
+     <tr><td>牧養時數 <span class="note">Shepherding hr</span></td><td class="num">${r2(hS)}</td></tr>
+     <tr><td>總時數 <span class="note">Sum hr</span></td><td class="num">${r2(hG+hS)}</td></tr>
+     <tr><td>出去次數</td><td class="num">${rs.length}</td></tr>`;
+  const c=sum('c'),pct=(n,d)=>d?Math.round(n/d*100)+'%':'–',div=(n,d)=>d?(n/d).toFixed(1):'–';
+  $('ratios').innerHTML=[
+    [div(c,hG),'Con./Gos.T 每小時福音接觸人數'],[pct(sum('p'),c),'Pre./Con. 傳講比例'],
+    [pct(sum('r'),c),'Read./Con. 讀經比例'],[div(hS,sum('r')),'Shep.Hr/Read. 每位讀經者牧養時數']
+  ].map(([v,l])=>`<div class="stat"><b class="num">${v}</b><span>${l}</span></div>`).join('');
+}
+function editForm(x){
+  return `<div class="ed">
+    <label>校園<select data-f="campus">${st.campuses.map(c=>`<option${c===x.campus?' selected':''}>${esc(c)}</option>`).join('')}</select></label>
+    <label>日期<input type="date" data-f="date" value="${esc(x.date)}"></label>
+    ${KEYS.map(([k,l])=>`<label>${l}<input type="number" min="0" inputmode="numeric" data-k="${k}" value="${x.counts[k]||0}"></label>`).join('')}
+    <label>福音時數<input type="number" step="0.25" min="0" inputmode="decimal" data-f="hG" value="${+x.hG||0}"></label>
+    <label>牧養時數<input type="number" step="0.25" min="0" inputmode="decimal" data-f="hS" value="${+x.hS||0}"></label>
+    <label class="full">備註<input data-f="memo" value="${esc(x.memo||'')}"></label>
+    <div class="row full">
+      <button class="btn main" data-ok="${x.id}" style="flex:1">儲存修改</button>
+      <button class="btn ghost" data-cancel>取消</button>
+      <button class="btn danger" data-del="${x.id}">刪除這筆</button>
+    </div></div>`;
+}
+function renderList(){
+  const rs=[...st.records].reverse();
+  $('list').innerHTML=rs.length?rs.map(x=>`<div class="rec" data-id="${x.id}">
+    <div class="head"><div><span class="tag" style="background:${col(x.campus)}">${esc(x.campus)}</span>${x.hS&&!x.hG?'<span class="tag s">牧養</span>':''}<b>${esc(x.date)}</b>
+     <div class="meta">${KEYS.filter(([k])=>x.counts[k]).map(([k,l])=>l+' '+x.counts[k]).join('・')||'（沒有計數）'}
+     ・福音 ${r2(+x.hG||0)}h・牧養 ${r2(+x.hS||0)}h</div>
+     ${x.memo?`<div class="meta">${esc(x.memo)}</div>`:''}</div>
+    ${editing===x.id?'':`<button class="btn ghost" data-edit="${x.id}">修改</button>`}</div>
+    ${editing===x.id?editForm(x):''}</div>`).join('')
+   :'<p class="note">還沒有紀錄。出去一次之後按「儲存這一次」，就會出現在這裡。</p>';
+}
+const all=()=>{renderCampus();renderKeys();renderCur();renderTotals();renderList()};
+
+$('keys').addEventListener('click',e=>{
+  const p=e.target.closest('[data-p]'),m=e.target.closest('[data-m]');
+  if(p){const k=p.dataset.p;st.cur.counts[k]=(st.cur.counts[k]||0)+1;if(navigator.vibrate)try{navigator.vibrate(15)}catch(_){}}
+  else if(m){const k=m.dataset.m;st.cur.counts[k]=Math.max(0,(st.cur.counts[k]||0)-1)}
+  else return;
+  save();renderKeys();
+});
+$('camps').addEventListener('click',e=>{
+  const b=e.target.closest('[data-c]');
+  if(b){const c=b.dataset.c;if(c===st.cur.campus)return;
+    st.cur.campus=c;save();renderCampus();
+    toast(curHas()?`這一次的數字改算在 ${c}`:`切換到 ${c}`);return}
+  if(e.target.closest('#addC')){
+    if($('newC'))return $('newC').focus();
+    $('camps').insertAdjacentHTML('beforeend','<input id="newC" placeholder="校園名稱" style="width:8em"><button class="btn go" id="okC">加入</button>');
+    $('newC').focus();
+    $('okC').onclick=()=>{const v=$('newC').value.trim();if(v&&!st.campuses.includes(v)){st.campuses.push(v);st.cur.campus=v;save()}renderCampus();renderTotals()};
+  }
+});
+$('tG').onclick=()=>{stopTimer();st.cur.type='g';save();renderCur()};
+$('tS').onclick=()=>{stopTimer();st.cur.type='s';save();renderCur()};
+$('timer').onclick=()=>{if(st.cur.runStart)stopTimer();else st.cur.runStart=Date.now();save();renderCur()};
+$('hG').oninput=e=>{st.cur.hG=+e.target.value||0;save()};
+$('hS').oninput=e=>{st.cur.hS=+e.target.value||0;save()};
+$('memo').oninput=e=>{st.cur.memo=e.target.value;save()};
+$('save').onclick=()=>{
+  stopTimer();
+  const c=st.cur,has=Object.values(c.counts).some(v=>v)||c.hG||c.hS||c.memo;
+  if(!has){toast('還沒有任何數字');renderCur();return}
+  st.records.push({id:Date.now(),date:today(),campus:c.campus,counts:{...c.counts},hG:r2(c.hG),hS:r2(c.hS),memo:c.memo});
+  st.cur={...blank(),campus:c.campus,type:c.type};save();all();toast(`已儲存到 ${c.campus}`);
+};
+let armR=0;
+$('reset').onclick=()=>{
+  if(Date.now()-armR>3000){armR=Date.now();$('reset').textContent='再按一次確認';setTimeout(()=>$('reset').textContent='清空重來',3000);return}
+  st.cur={...blank(),campus:st.cur.campus,type:st.cur.type};save();all();toast('已清空');
+};
+$('list').addEventListener('click',e=>{
+  const ed=e.target.closest('[data-edit]'),ok=e.target.closest('[data-ok]'),del=e.target.closest('[data-del]');
+  if(ed){editing=+ed.dataset.edit;renderList();return}
+  if(e.target.closest('[data-cancel]')){editing=null;renderList();return}
+  if(ok){
+    const box=ok.closest('.ed'),x=st.records.find(r=>r.id===+ok.dataset.ok);if(!x)return;
+    box.querySelectorAll('[data-f]').forEach(i=>{const f=i.dataset.f;x[f]=(f==='hG'||f==='hS')?r2(+i.value||0):i.value});
+    box.querySelectorAll('[data-k]').forEach(i=>{x.counts[i.dataset.k]=Math.max(0,parseInt(i.value)||0)});
+    editing=null;save();renderTotals();renderList();toast('已修改');return}
+  if(del){
+    if(!del.dataset.arm){del.dataset.arm=1;del.textContent='確定刪除？';setTimeout(()=>{delete del.dataset.arm;del.textContent='刪除這筆'},3000);return}
+    st.records=st.records.filter(x=>x.id!==+del.dataset.del);editing=null;save();renderTotals();renderList();toast('已刪除')}
+});
+['fCampus','fFrom','fTo'].forEach(id=>$(id).addEventListener('change',renderTotals));
+$('copy').onclick=async()=>{
+  const head=['日期','校園',...KEYS.map(k=>k[1]),'福音時數','牧養時數','備註'];
+  const rows=st.records.map(x=>[x.date,x.campus,...KEYS.map(([k])=>x.counts[k]||0),x.hG||0,x.hS||0,(x.memo||'').replace(/[\t\n]/g,' ')]);
+  const txt=[head,...rows].map(r=>r.join('\t')).join('\n');
+  try{await navigator.clipboard.writeText(txt);toast('已複製 '+rows.length+' 筆')}
+  catch(e){toast('無法自動複製，請稍後再試')}
+};
+
+$('impBtn').onclick=()=>{
+  const lines=$('impTxt').value.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+  const sig=x=>[x.date,x.campus,...KEYS.map(([k])=>x.counts[k]||0),x.hG||0,x.hS||0,x.memo||''].join('|');
+  const have=new Set(st.records.map(sig));let add=0,skip=0,bad=0,base=Date.now();
+  for(const l of lines){const c=l.split('\t');
+    if(c[0]==='日期')continue;
+    if(c.length<2+KEYS.length+2||!/^\d{4}-\d{2}-\d{2}$/.test(c[0])){bad++;continue}
+    const counts={};KEYS.forEach(([k],i)=>{const v=+c[2+i]||0;if(v)counts[k]=v});
+    const x={id:base+add,date:c[0],campus:c[1],counts,hG:+c[2+KEYS.length]||0,hS:+c[3+KEYS.length]||0,memo:c[4+KEYS.length]||''};
+    if(have.has(sig(x))){skip++;continue}
+    have.add(sig(x));st.records.push(x);add++;
+    if(!st.campuses.includes(x.campus))st.campuses.push(x.campus)}
+  st.records.sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:a.id-b.id);
+  save();all();$('impTxt').value='';
+  toast('匯入 '+add+' 筆'+(skip?'，略過重複 '+skip+' 筆':'')+(bad?'，看不懂 '+bad+' 行':''));
+};
+all();
+}
+</script>
+<script>
+if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(()=>{});
+if(navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(()=>{});
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
-// 版本：v2　每次改版換新版本號，手機下次連網會自動更新
-const CACHE = 'bd-notes-v2';
-const FILES = [["a/index.json", "311d096988"], ["a/names.mp3", "ff24d518ca"], ["apple-touch-icon.png", "ba56aa96ad"], ["icon-192.png", "7e29e8527a"], ["icon-512.png", "08349ef569"], ["index.html", "fb4234d77b"], ["manifest.webmanifest", "867d6b8a75"], ["../fonts/fonts.css", "939240119c"], ["../fonts/noto-sans-bengali-bengali-400-normal.woff2", "adb805ae2e"], ["../fonts/noto-sans-bengali-bengali-600-normal.woff2", "abfa65f4f7"], ["../fonts/source-serif-4-latin-400-italic.woff2", "882b7c150c"], ["../fonts/source-serif-4-latin-400-normal.woff2", "02194deb92"], ["../fonts/source-serif-4-latin-600-normal.woff2", "f2b7e1cf1d"]];   // [路徑, 雜湊]
+// 版本：r2　每次改版換新版本號，手機下次連網會自動更新
+const CACHE = 'bd-notes-r2';
+const FILES = [["icons/apple-touch-icon.png", "a876209366"], ["icons/icon-192.png", "1684d9dbec"], ["icons/icon-512.png", "9fd9e7613b"], ["index.html", "51064c4ade"], ["manifest.webmanifest", "7dc7e7befd"], ["mill/index.html", "c9e8fb8956"], ["notes/a/index.json", "311d096988"], ["notes/a/names.mp3", "ff24d518ca"], ["notes/index.html", "1f80c4d9d3"], ["../fonts/barlow-condensed-latin-600-normal.woff2", "215a93c696"], ["../fonts/barlow-condensed-latin-700-normal.woff2", "3787a5a419"], ["../fonts/fonts.css", "7f1c98726a"], ["../fonts/noto-sans-bengali-bengali-400-normal.woff2", "adb805ae2e"], ["../fonts/noto-sans-bengali-bengali-600-normal.woff2", "abfa65f4f7"], ["../fonts/source-serif-4-latin-400-italic.woff2", "882b7c150c"], ["../fonts/source-serif-4-latin-400-normal.woff2", "02194deb92"], ["../fonts/source-serif-4-latin-600-normal.woff2", "f2b7e1cf1d"]];   // [路徑, 雜湊]
 const SKIP = [];
 self.addEventListener('install', e => {
   e.waitUntil((async () => {
@@ -26,7 +26,7 @@ self.addEventListener('activate', e => {
   })());
 });
 self.addEventListener('message', e => {
-  if (e.data === 'status') caches.open(CACHE).then(c => c.keys()).then(ks => e.source.postMessage({ type: 'status', have: ks.length, total: FILES.length, rel: 'v2' }));
+  if (e.data === 'status') caches.open(CACHE).then(c => c.keys()).then(ks => e.source.postMessage({ type: 'status', have: ks.length, total: FILES.length, rel: 'r2' }));
 });
 self.addEventListener('fetch', e => {
   const req = e.request;
